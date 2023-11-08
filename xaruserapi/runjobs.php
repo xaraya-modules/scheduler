@@ -66,8 +66,8 @@ function scheduler_userapi_runjobs($args)
 #
     # Create a jobs object instance for easy updating
 #
-    sys::import('modules.dynamicdata.class.objects.master');
-    $jobobject = DataObjectMaster::getObject(['name' => 'scheduler_jobs']);
+    sys::import('modules.dynamicdata.class.objects.factory');
+    $jobobject = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
 
     # --------------------------------------------------------
 #

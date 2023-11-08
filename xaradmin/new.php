@@ -27,8 +27,8 @@ function scheduler_admin_new()
         return;
     }
 
-    sys::import('modules.dynamicdata.class.objects.master');
-    $data['object'] = DataObjectMaster::getObject(['name' => 'scheduler_jobs']);
+    sys::import('modules.dynamicdata.class.objects.factory');
+    $data['object'] = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
 
     if (!empty($addjob) && preg_match('/^(\w+);(\w+);(\w+)$/', $addjob, $matches)) {
         $data['object']->properties['module']->value = $matches[1];

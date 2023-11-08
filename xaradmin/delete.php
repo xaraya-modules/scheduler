@@ -32,8 +32,8 @@ function scheduler_admin_delete()
         return;
     }
 
-    sys::import('modules.dynamicdata.class.objects.master');
-    $job = DataObjectMaster::getObject(['name' => 'scheduler_jobs']);
+    sys::import('modules.dynamicdata.class.objects.factory');
+    $job = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
 
     // Check for confirmation
     if (empty($confirm)) {

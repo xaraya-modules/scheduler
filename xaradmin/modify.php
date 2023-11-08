@@ -32,8 +32,8 @@ function scheduler_admin_modify()
         return true;
     }
 
-    sys::import('modules.dynamicdata.class.objects.master');
-    $data['object'] = DataObjectMaster::getObject(['name' => 'scheduler_jobs']);
+    sys::import('modules.dynamicdata.class.objects.factory');
+    $data['object'] = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
     $data['object']->getItem(['itemid' => $data['itemid']]);
 
     if (!empty($confirm)) {

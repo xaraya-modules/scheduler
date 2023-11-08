@@ -48,8 +48,8 @@ function scheduler_admin_test()
     }
 
     // Get the job details
-    sys::import('modules.dynamicdata.class.objects.master');
-    $job = DataObjectMaster::getObject(['name' => 'scheduler_jobs']);
+    sys::import('modules.dynamicdata.class.objects.factory');
+    $job = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
     $job->getItem(['itemid' => $itemid]);
 
     // Run the job
