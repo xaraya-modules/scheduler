@@ -1,0 +1,25 @@
+{# @scheduler/main.html.twig #}
+
+{% extends '@scheduler/base.html.twig' %}
+
+{% block modulespace %}
+{#   License: GPL http://www.gnu.org/copyleft/gpl.html  #}
+    {{ include('@scheduler/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {% if message %}
+            {{ message }}
+        {% else %}
+            {% if output %}
+                {% for row in output %}
+                	{% if row is iterable %}
+                		{% for item in row %}
+                			{{ item }}<br/>
+                		{% endfor %}
+                	{% else %}
+						{{ row }}<br/>
+                	{% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

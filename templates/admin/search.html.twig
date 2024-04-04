@@ -1,0 +1,23 @@
+{# @scheduler/admin/search.html.twig #}
+
+{% block search %}
+{#   License: GPL http://www.gnu.org/copyleft/gpl.html  #}
+    {{ include('@scheduler/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Scheduler API Functions</h2>
+        {% if found and found|length > 0 %}
+            <ul>
+                {% for api in found %}
+                    {% set args = {'addjob': "api[module];api[type];api[func]"} %}
+                    <li>[<a href="{{ xar_moduleurl('scheduler','admin','new',args) }}">add job</a>] {{ api['module'] }} - {{ api['type'] }} - {{ api['func'] }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>
+                <div class="xar-accent xar-norm-outline xar-padding-thick">
+                    Note: there may be other API functions available for use by the scheduler - check your module documentation or try it out
+                </div>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

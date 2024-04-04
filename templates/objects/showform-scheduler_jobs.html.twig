@@ -1,0 +1,130 @@
+{# @scheduler/objects/showform-scheduler_jobs.html.twig #}
+
+{% block showform_scheduler_jobs %}
+<fieldset>
+        <legend>
+            Job Settings
+        </legend>
+        {{ xar_data_input({property: properties['id'], hidden: "hidden"}) }}
+        {{ xar_data_input({property: properties['last_run'], hidden: "hidden"}) }}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['module'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['module']}) }}
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['type'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['type']}) }}
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['function'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['function']}) }}
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['parameters'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['parameters']}) }}
+                example: array('ptid' => 1)
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['job_interval'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['job_interval']}) }}
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['start_date'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['start_date']}) }}
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['end_date'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['end_date']}) }}
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>
+            Trigger Settings
+        </legend>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['job_trigger'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['job_trigger']}) }}
+            </div>
+        </div>
+        <p>
+            The following settings are used to limit external access to the scheduler.
+        </p>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['source_type'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['source_type']}) }}
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['source'], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['source']}) }}
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            Crontab
+        </legend>
+
+        {{ xar_data_input({property: properties['crontab']}) }}
+        {% set interval = object.properties['job_interval'].value %}
+        {% if interval == '0c' and config['crontab'] %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    <label class="xar-form-label">
+                        Next Run
+                    </label>
+                </div>
+                <div class="xar-col">
+                    {% if not config['crontab']['nextrun'] %}
+                        {% set nextrun = xar_apifunc('scheduler','user','nextrun',config['crontab']) %}
+                        {{ xar_coremethod('xarLocale', 'formatDate', ['%a, %d %B %Y %H.%M.%S %Z',nextrun]) }}
+                    {% else %}
+                        {{ xar_coremethod('xarLocale', 'formatDate', ['%a, %d %B %Y %H.%M.%S %Z',config['crontab']['nextrun']]) }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </fieldset>
+    <p>
+        Please note that the scheduler module still needs to be triggered by some external mechanism, and that any crontab interval will apply at the first trigger after the next scheduled run
+        (i.e. if the crontab specifies each Monday at 8:15 and the next trigger comes on Tuesday at 10:45, the job will run then).
+    </p>
+{% endblock %}

@@ -1,0 +1,56 @@
+{# @scheduler/admin/delete.html.twig #}
+
+{% block delete %}
+{{ include('@scheduler/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Delete Scheduler Job</h2>
+        <fieldset>
+            <legend>
+                Confirm deleting this job?
+            </legend>
+            <p>
+                Module:
+                {{ xar_data_output({property: properties['module']}) }}
+            </p>
+            <p>
+                Type:
+                {{ xar_data_output({property: properties['type']}) }}
+            </p>
+            <p>
+                Function:
+                {{ xar_data_output({property: properties['function']}) }}
+            </p>
+            <p>
+                Trigger:
+                {{ xar_data_output({property: properties['job_trigger']}) }}
+            </p>
+        </fieldset>
+
+        {% set running = xar_modulevar('scheduler', 'running.' ~ itemid) %}
+
+        {% if running != 0 and properties['job_trigger'].value != 0 %}
+            <p class="xar-alt-outline xar-padding-thick">
+                This job must be disabled and not running to allow deletion. 
+                <a href="{{ xar_moduleurl('scheduler','admin','modify',{'itemid': itemid}) }}">Please set its trigger to disabled</a>.
+            </p>
+        {% else %}
+            <form method="post" action="{{ xar_moduleurl('scheduler','admin','delete') }}">
+                <div class="xar-row">
+                    <div class="xar-col">
+                        &#160;
+                    </div>
+                    <div class="xar-col">
+                        <input type="hidden" name="authid" id="authid" value="{{ authid }}"/>
+                        <input type="hidden" name="confirm" id="confirm" value="true"/>
+                        <input type="hidden" name="itemid" id="itemid" value="{{ itemid }}"/>
+                        {% set label = 'Delete Job' %}
+                        {{- xar_button({type: "submit", label: label}) -}}
+                        {% set returnurl = xar_moduleurl('scheduler', 'admin', 'view') %}
+                        {% set label = 'Cancel' %}
+                        {{- xar_button({type: "cancel", label: label, onclick: "window.location='" ~ returnurl ~ "';"}) -}}
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

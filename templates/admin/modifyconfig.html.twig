@@ -1,0 +1,54 @@
+{# @scheduler/admin/modifyconfig.html.twig #}
+
+{% block modifyconfig %}
+{#   License: GPL http://www.gnu.org/copyleft/gpl.html  #}
+    {{ include('@scheduler/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Modify Configuration</h2>
+
+        <form action="{{ xar_moduleurl('scheduler', 'admin', 'modifyconfig', {'tab': tab}) }}" method="post" enctype="application/x-www-form-urlencoded" >
+            {% if tab == 'general' %}
+                <fieldset>
+                    <legend>        
+                        General Settings
+                    </legend>
+                    {{ xar_data_form({object: module_settings}) }}
+                </fieldset>
+                <fieldset>
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            Force interval between triggers
+                        </div>
+                        <div class="xar-col">
+                            {% set options = [
+                                    {'id': 0, 'name': xar_translate('None')},
+                                    {'id': 1, 'name': xar_translate('1 second')},
+                                    {'id': 30, 'name': xar_translate('30 seconds')},
+                                    {'id': 60, 'name': xar_translate('1 minute')},
+                                    {'id': 120, 'name': xar_translate('2 minutes')},
+                                    {'id': 300, 'name': xar_translate('5 minutes')},
+                                    {'id': 600, 'name': xar_translate('10 minutes')},
+                                    {'id': 900, 'name': xar_translate('15 minutes')},
+                                    {'id': 1800, 'name': xar_translate('30 minutes')},
+                                    {'id': 2700, 'name': xar_translate('45 minutes')},
+                                    {'id': 3600, 'name': xar_translate('1 hour')},
+                                    {'id': 3600*2, 'name': xar_translate('2 hours')},
+                                    {'id': 3600*6, 'name': xar_translate('6 hours')},
+                                    {'id': 3600*24, 'name': xar_translate('1 day')},
+                                ] %}
+                            {% set value = xar_modulevar('scheduler', 'interval') %}
+                            {{ xar_data_input({type: "dropdown", name: "interval", value: value, options: options}) }}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        Debugging
+                    </legend>
+                    {{ include('@scheduler/includes/config_debug.html.twig') }}
+                </fieldset>
+            {% endif %}
+            {{ include('@base/includes/update-button.html.twig') }}
+        </form>
+    </div>
+{% endblock %}

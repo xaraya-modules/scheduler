@@ -1,0 +1,199 @@
+{# @scheduler/admin/modify.html.twig #}
+
+{% block modify %}
+{{ include('@scheduler/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>
+            {{ xar_translate('Modify Scheduler Job #(1)', itemid) }}
+        </h2>
+
+        <form method="post" action="{{ xar_moduleurl('scheduler','admin','modify',{'itemid': itemid}) }}">
+            {{ xar_data_form({object: object, tplmodule: "scheduler"}) }}
+            {# <!--
+                <div class="xar-form-input-wrapper">
+                    <label for="job_module" class="xar-form-label">
+                        Module
+                    </label>
+                    <select name="job_module" id="job_module">
+                        {% if module == '' %}
+                            <option value=""></option>
+                        {% else %}
+                            <option value="">
+                                [ {{ xar_translate('Remove #(1)', module) }} ]
+                            </option>
+                        {% endif %}
+                        {% for name, display in modules %}
+                            {% if module and module == name %}
+                                <option value="{{ name }}" selected="selected">{{ display }}</option>
+                            {% else %}
+                                <option value="{{ name }}">{{ display }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="functype" class="xar-form-label">
+                        Type
+                    </label>
+                    <select name="functype">
+                        {% for name, display in types %}
+                            {% if functype and functype == name %}
+                                <option value="{{ name }}" selected="selected">{{ display }}</option>
+                            {% else %}
+                                <option value="{{ name }}">{{ display }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="job_func" class="xar-form-label">
+                        API Function
+                    </label>
+                    <input type="text" name="job_func" id="job_func" value="{{ func }}" size="10"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="config_params" class="xar-form-label">
+                        Parameters
+                    </label>
+                    <input type="text" name="config[params]" id="config_params" value="{{ config['params'] }}"/>
+                    example: array('ptid' => 1)
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="job_interval" class="xar-form-label">
+                        Interval
+                    </label>
+                    <select name="job_interval" id="job_interval">
+                        {% for name, display in intervals %}
+                            {% if job_interval and job_interval == name %}
+                                <option value="{{ name }}" selected="selected">{{ display }}</option>
+                            {% else %}
+                                <option value="{{ name }}">{{ display }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="config_startdate" class="xar-form-label">
+                        Start Date
+                    </label>
+                    {{ xar_data_input({type: "calendar", name: "config[startdate]", id: "config_startdate", value: config['startdate']}) }}
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="config_enddate" class="xar-form-label">
+                        End Date
+                    </label>
+                    {{ xar_data_input({type: "calendar", name: "config[enddate]", id: "config_enddate", value: config['enddate']}) }}
+                </div>
+            <fieldset>
+                <legend>
+                    Trigger Settings
+                </legend>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="job_trigger" class="xar-form-label">
+                        Trigger Type
+                    </label>
+                    <select name="job_trigger" id="job_trigger">
+                        {% for triggerid, triggername in triggers %}
+                            {% if job_trigger and job_trigger == triggerid %}
+                                <option value="{{ triggerid }}" selected="selected">{{ triggername }}</option>
+                            {% else %}
+                                <option value="{{ triggerid }}">{{ triggername }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <p>
+                    If using an external trigger, point it at the following web page:
+                </p>
+                <blockquote>
+                    {{ xar_moduleurl('scheduler','user','main',{'itemid': itemid}) }}
+                </blockquote>
+
+                <p>
+                    The following settings are used to limit external access to the scheduler.
+                </p>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="checktype" class="xar-form-label">
+                        Source Type
+                    </label>
+                    <select name="checktype" id="job_trigger">
+                        {% for sourceid, sourcename in sources %}
+                            {% if checktype and checktype == sourceid %}
+                                <option value="{{ sourceid }}" selected="selected">{{ sourcename }}</option>
+                            {% else %}
+                                <option value="{{ sourceid }}">{{ sourcename }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="checkvalue" class="xar-form-label">
+                        Source
+                    </label>
+                    <input type="text" name="checkvalue" id="checkvalue" value="{{ checkvalue }}"/>
+                </div>
+
+
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    Crontab
+                </legend>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="config_crontab_minute" class="xar-form-label">
+                        Minutes (0-59)
+                    </label>
+                    <input type="text" name="config[crontab][minute]" id="config_crontab_minute" value="{{ config['crontab']['minute'] }}"/>
+                    example: 0,15,30,45 = every 15 minutes
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="config_crontab_hour" class="xar-form-label">
+                        Hours (0-23)
+                    </label>
+                    <input type="text" name="config[crontab][hour]" id="config_crontab_hour" value="{{ config['crontab']['hour'] }}"/>
+                    example: 8-18 = during business hours
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="config_crontab_day" class="xar-form-label">
+                        Days (1-31)
+                    </label>
+                    <input type="text" name="config[crontab][day]" id="config_crontab_day" value="{{ config['crontab']['day'] }}"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="config_crontab_month" class="xar-form-label">
+                        Months (1-12)
+                    </label>
+                    <input type="text" name="config[crontab][month]" id="config_crontab_month" value="{{ config['crontab']['month'] }}"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="config_crontab_weekday" class="xar-form-label">
+                        Week Days (0-6)
+                    </label>
+                    <input type="text" name="config[crontab][weekday]" id="config_crontab_weekday" value="{{ config['crontab']['weekday'] }}"/>
+                    example: 1-5 = from Monday to Friday
+                </div>
+            </fieldset>
+--> #}
+            {% if xar_modulevar('scheduler', 'running.' . itemid) %}
+                Warning: This job is currently running - any changes you make now may be overwritten<br/>
+            {% endif %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    &#160;
+                </div>
+                <div class="xar-col">
+                    <input type="hidden" name="itemid" id="itemid" value="{{ itemid }}"/>
+                    <input type="hidden" name="authid" id="authid" value="{{ xar_coremethod('xarSec', 'genAuthKey') }}"/>
+                    {% set label = 'Update Job' %}
+                    {{- xar_button({type: "submit", name: "confirm", label: label}) -}}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

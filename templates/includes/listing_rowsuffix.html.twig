@@ -1,0 +1,27 @@
+{# @scheduler/includes/listing_rowsuffix.html.twig #}
+
+{% block listing_rowsuffix %}
+<td style="text-align: center;" nowrap="nowrap">
+         {% if objectname == 'scheduler_jobs' %}
+            <xar:access level="500">
+                <a href="{{ xar_moduleurl(module, 'admin', 'modify', {'name': objectname, 'itemid': loopitem[primaryalias]}) }}" title="{{ xar_translate('Modify this item') }}" style="margin-right: 5px">
+                    <img src="{{ xar_imageurl('icons/' ~ 'modify.png', 'base') }}" width="16" height="16" alt="{{ xar_translate('Modify') }}"/>
+                </a>
+                <a href="{{ xar_moduleurl(module, 'admin', 'test', {'itemid': loopitem[primaryalias]}) }}" title="{{ xar_translate('Test run this item') }}" style="margin-right: 5px">
+                    <img src="{{ xar_imageurl('icons/' ~ 'test.png', 'base') }}" width="16" height="16" alt="{{ xar_translate('Test') }}"/>
+                </a>
+            </xar:access>
+            <xar:access level="700">
+                <a href="{{ xar_moduleurl(module, 'admin', 'delete', {'name': objectname, 'itemid': loopitem[primaryalias]}) }}" title="{{ xar_translate('Delete this item') }}" style="margin-right: 5px">
+                    <img src="{{ xar_imageurl('icons/' ~ 'delete.png', 'base') }}" width="16" height="16" alt="{{ xar_translate('Delete') }}"/>
+                </a>
+            </xar:access>
+            {# <!--
+            {% if show_bulk is not null and show_bulk %}
+                <input type="checkbox" name="optionscheckbox" id="{{ loopitem[primaryalias] }}" />
+            {% endif %}
+             --> #}
+        {% else %}
+        {% endif %}
+    </td>
+{% endblock %}

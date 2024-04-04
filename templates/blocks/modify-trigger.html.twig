@@ -1,0 +1,15 @@
+{# @scheduler/blocks/modify-trigger.html.twig #}
+
+{% block modify_trigger %}
+<div class="xar-form-input-wrapper">
+    <label for="showstatus{{ blockid }}" class="help xar-form-label" title="{{ xar_translate('Show the status of the trigger to administrators?') }}">Show status to admins</label>
+    {% if not showstatus %}
+        <input type="checkbox" name="showstatus" id="showstatus{{ blockid }}" value="1" />
+    {% else %}
+        <input type="checkbox" name="showstatus" id="showstatus{{ blockid }}" value="1" checked="checked" />
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

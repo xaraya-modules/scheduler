@@ -1,0 +1,38 @@
+{# @scheduler/admin/test.html.twig #}
+
+{% block test %}
+{{ include('@scheduler/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Test Scheduler Job</h2>
+        {% if itemid %}
+        <fieldset>
+            <legend>
+                Run this job now?
+            </legend>
+            <form method="post" action="{{ xar_moduleurl('scheduler','admin','test') }}">
+                <div class="xar-row">
+                    <div class="xar-col">
+                    </div>
+                    <div class="xar-col">
+                        <input type="hidden" name="authid" id="authid" value="{{ xar_coremethod('xarSec', 'genAuthKey') }}"/>
+                        <input type="hidden" name="confirm" id="confirm" value="true"/>
+                        <input type="hidden" name="itemid" id="itemid" value="{{ itemid }}"/>
+                        {% set returnurl = xar_moduleurl('scheduler', 'admin', 'view') %}
+                        {% set label = 'Cancel' %}
+                        {{- xar_button({type: "cancel", label: label, onclick: "window.location='" ~ returnurl ~ "';"}) -}}
+                        {% set label = 'Run' %}
+                        {{- xar_button({type: "submit", label: label}) -}}
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+        {% else %}
+        <fieldset>
+            <legend>
+                Result
+            </legend>
+            <pre>{{ result }}</pre>
+        </fieldset>
+        {% endif %}
+    </div>
+{% endblock %}
