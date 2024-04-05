@@ -16,7 +16,7 @@
  * @author mikespub
  * @return array of intervals
  */
-function scheduler_userapi_intervals()
+function scheduler_userapi_intervals(array $args = [], $context = null)
 {
     $intervals = [
                        '0t' => xarML('never'),

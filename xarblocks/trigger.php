@@ -46,7 +46,7 @@ class TriggerBlock extends BasicBlock implements iBlock
      * Display func.
      * @param $data array containing title,content
      */
-    public function display(array $data=[])
+    public function display(array $data = [])
     {
         $vars = $this->getContent();
         /*
@@ -73,7 +73,7 @@ class TriggerBlock extends BasicBlock implements iBlock
 
         // Let's run without interruptions for a while :)
         @ignore_user_abort(true);
-        @set_time_limit(15*60);
+        @set_time_limit(15 * 60);
 
         // update the last run time
         xarModVars::set('scheduler', 'lastrun', $now - 60); // remove the margin here
@@ -83,7 +83,7 @@ class TriggerBlock extends BasicBlock implements iBlock
         //       So we need to find some better way to see if we're really the only ones playing here...
 
         // let's see if we're the only ones trying to run jobs at this moment
-        $GLOBALS['xarScheduler_LockFileHandle'] = fopen(sys::varpath().'/cache/templates/scheduler.lock', 'w+');
+        $GLOBALS['xarScheduler_LockFileHandle'] = fopen(sys::varpath() . '/cache/templates/scheduler.lock', 'w+');
         if (empty($GLOBALS['xarScheduler_LockFileHandle']) || !flock($GLOBALS['xarScheduler_LockFileHandle'], LOCK_EX | LOCK_NB)) {
             fclose($GLOBALS['xarScheduler_LockFileHandle']);
             if (empty($vars['showstatus'])) {

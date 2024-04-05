@@ -15,14 +15,14 @@
  * @author jojodee <jojodee@xaraya.com>
  * @return mixed
  */
-function scheduler_admin_overview()
+function scheduler_admin_overview(array $args = [], $context = null)
 {
     /* Security Check */
     if (!xarSecurity::check('AdminScheduler', 0)) {
         return;
     }
 
-    $data=[];
+    $data = [];
 
     /* if there is a separate overview function return data to it
      * else just call the main function that displays the overview

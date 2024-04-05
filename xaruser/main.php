@@ -14,7 +14,7 @@
  * the main user function - only used for external triggers
  * @param  $args ['itemid'] job id (optional)
  */
-function scheduler_user_main()
+function scheduler_user_main(array $args = [], $context = null)
 {
     // Check when we last ran the scheduler
     $lastrun = xarModVars::get('scheduler', 'lastrun');

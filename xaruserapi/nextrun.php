@@ -16,7 +16,7 @@
  * @param  $args array specifying the custom interval
  * @return int timestamp
  */
-function scheduler_userapi_nextrun($args = [])
+function scheduler_userapi_nextrun(array $args = [], $context = null)
 {
     if (empty($args)) {
         return 1;

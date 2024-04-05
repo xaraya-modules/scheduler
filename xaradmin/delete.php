@@ -17,7 +17,7 @@
  * @param  $args ['itemid'] job id
  * @return true on success, void on failure
  */
-function scheduler_admin_delete()
+function scheduler_admin_delete(array $args = [], $context = null)
 {
     // Get parameters
     if (!xarVar::fetch('itemid', 'id', $itemid)) {
@@ -66,6 +66,6 @@ function scheduler_admin_delete()
 
     $job->deleteItem(['itemid' => $itemid]);
     // Pass to API
-    xarController::redirect(xarController::URL('scheduler', 'admin', 'view'));
+    xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $context);
     return true;
 }

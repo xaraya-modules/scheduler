@@ -16,7 +16,7 @@
  * @author mikespub
  * @return array of intervals
  */
-function scheduler_userapi_sources()
+function scheduler_userapi_sources(array $args = [], $context = null)
 {
     $triggers = [
                        1 => xarML('Localhost'),

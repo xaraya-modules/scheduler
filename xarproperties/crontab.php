@@ -46,7 +46,7 @@ class CrontabProperty extends DataProperty
             [$isvalid, $months] = $this->fetchValue($name . '_month');
             [$isvalid, $weekdays] = $this->fetchValue($name . '_weekday');
         }
-        if (!isset($minutes) ||!isset($hours) ||!isset($days) ||!isset($months) ||!isset($weekdays)) {
+        if (!isset($minutes) || !isset($hours) || !isset($days) || !isset($months) || !isset($weekdays)) {
             $this->objectref->missingfields[] = $this->name;
             return null;
         }
@@ -112,7 +112,7 @@ class CrontabProperty extends DataProperty
         return unserialize($this->value);
     }
 
-    public function setValue($value=null)
+    public function setValue($value = null)
     {
         $this->value = serialize($value);
     }

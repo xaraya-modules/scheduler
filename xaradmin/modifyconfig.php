@@ -14,7 +14,7 @@
  * This is a standard function to modify the configuration parameters of the
  * module
  */
-function scheduler_admin_modifyconfig()
+function scheduler_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('AdminScheduler')) {
@@ -43,7 +43,7 @@ function scheduler_admin_modifyconfig()
         case 'update':
             // Confirm authorisation code
             if (!xarSec::confirmAuthKey()) {
-                return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+                return xarController::badRequest('bad_author', $context);
             }
 
             switch (strtolower($data['tab'])) {

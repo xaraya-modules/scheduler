@@ -16,7 +16,7 @@
  * @author mikespub
  * @return array of intervals
  */
-function scheduler_userapi_triggers()
+function scheduler_userapi_triggers(array $args = [], $context = null)
 {
     $triggers = [
                        0 => xarML('Disabled'),

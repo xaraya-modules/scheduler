@@ -20,7 +20,7 @@
  * @param  $args ['itemid'] job id
  * @return array of job info on success, void on failure
  */
-function scheduler_userapi_get($args)
+function scheduler_userapi_get(array $args = [], $context = null)
 {
     extract($args);
     if ((empty($itemid) || !is_numeric($itemid)) && (empty($module) || !is_string($module)) && (empty($type) || !is_string($type)) && (empty($func) || !is_string($func))) {

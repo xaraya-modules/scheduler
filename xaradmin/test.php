@@ -16,7 +16,7 @@
  * @param  $args ['itemid'] job id
  * @return true on success, void on failure
  */
-function scheduler_admin_test()
+function scheduler_admin_test(array $args = [], $context = null)
 {
     // Get parameters
     if (!xarVar::fetch('itemid', 'id', $itemid, 0, xarVar::NOT_REQUIRED)) {
@@ -27,7 +27,7 @@ function scheduler_admin_test()
     }
 
     if (empty($itemid)) {
-        return xarResponse::NotFound();
+        return xarController::notFound(null, $context);
     }
 
     // Security Check

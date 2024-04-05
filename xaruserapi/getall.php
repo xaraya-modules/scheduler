@@ -20,7 +20,7 @@
  * @param int    $args['trigger']: 0: disabled, 1: external, 2: block, 3: event
  * @return array of jobs and their info
  */
-function scheduler_userapi_getall($args)
+function scheduler_userapi_getall(array $args = [], $context = null)
 {
     sys::import('modules.dynamicdata.class.objects.factory');
     $object = DataObjectFactory::getObjectList(['name' => 'scheduler_jobs']);

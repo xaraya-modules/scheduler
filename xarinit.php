@@ -20,13 +20,13 @@ sys::import('xaraya.tableddl');
 function scheduler_init()
 {
     # --------------------------------------------------------
-#
+    #
     # Define the table structures
-#
+    #
 
     // Get database information
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $prefix = xarDB::getPrefix();
 
     try {
@@ -78,7 +78,7 @@ function scheduler_init()
                                                               'unsigned'    => true,
                                                               'null'        => false,
                                                               'default'     => '0', ],
-                                        'job_interval' =>['type'    => 'varchar',
+                                        'job_interval' => ['type'    => 'varchar',
                                                               'size'        => 4,
                                                               'null'        => false,
                                                               'default'     => '', ],
@@ -103,31 +103,31 @@ function scheduler_init()
     }
 
     # --------------------------------------------------------
-#
+    #
     # Set up modvars
-#
+    #
     xarModVars::set('scheduler', 'trigger', 'disabled');
     xarModVars::set('scheduler', 'lastrun', 0);
     xarModVars::set('scheduler', 'items_per_page', 20);
-    xarModVars::set('scheduler', 'interval', 5*60);
+    xarModVars::set('scheduler', 'interval', 5 * 60);
     xarModVars::set('scheduler', 'debugmode', false);
-#
+    #
     # Register masks
-#
+    #
     xarMasks::register('ManageScheduler', 'All', 'scheduler', 'All', 'All', 'ACCESS_DELETE');
     xarMasks::register('AdminScheduler', 'All', 'scheduler', 'All', 'All', 'ACCESS_ADMIN');
 
     # --------------------------------------------------------
-#
+    #
     # Register privileges
-#
+    #
     xarPrivileges::register('ManageScheduler', 'All', 'scheduler', 'All', 'All', 'ACCESS_DELETE');
     xarPrivileges::register('AdminScheduler', 'All', 'scheduler', 'All', 'All', 'ACCESS_ADMIN');
 
     # --------------------------------------------------------
-#
+    #
     # Create DD objects
-#
+    #
     // First pull in this module's properties as we use at least one in the objects below
     PropertyRegistration::importPropertyTypes(false, ['modules/scheduler/xarproperties']);
 

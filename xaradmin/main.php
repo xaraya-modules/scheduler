@@ -13,7 +13,7 @@
 /**
  * the main administration function
  */
-function scheduler_admin_main()
+function scheduler_admin_main(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminScheduler')) {
         return;
@@ -22,7 +22,7 @@ function scheduler_admin_main()
     if (xarModVars::get('modules', 'disableoverview') == 0) {
         return [];
     } else {
-        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'));
+        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $context);
     }
     return true;
 }

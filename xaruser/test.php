@@ -14,7 +14,7 @@
  * the main user function - only used for external triggers
  * @param  $args ['itemid'] job id (optional)
  */
-function scheduler_user_test()
+function scheduler_user_test(array $args = [], $context = null)
 {
     callScheduler();
     writeInLog();
@@ -39,7 +39,7 @@ function writeInLog()
 
     // The scheduler test log
     $msg = "Current Date";
-    $log = $msg . "   |  Date:  " . $date."\n";
+    $log = $msg . "   |  Date:  " . $date . "\n";
     $path = sys::varpath() . "/logs/testscheduler.log";
     error_log($log, 3, $path);
     return true;

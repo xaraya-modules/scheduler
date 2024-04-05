@@ -13,7 +13,7 @@
 /**
  * search for scheduler API functions in modules/<module>/xarschedulerapi directories
  */
-function scheduler_admin_search()
+function scheduler_admin_search(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminScheduler')) {
         return;
@@ -28,7 +28,7 @@ function scheduler_admin_search()
         $activemodules[$item['name']] = 1;
     }
 
-    $modules = sys::code().'modules';
+    $modules = sys::code() . 'modules';
     $dh = opendir($modules);
     if (empty($dh)) {
         return $data;

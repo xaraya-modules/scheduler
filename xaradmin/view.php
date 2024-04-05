@@ -14,7 +14,7 @@
  * This is a standard function to modify the configuration parameters of the
  * module
  */
-function scheduler_admin_view()
+function scheduler_admin_view(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminScheduler')) {
         return;

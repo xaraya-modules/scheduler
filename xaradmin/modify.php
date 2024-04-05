@@ -14,7 +14,7 @@
  * Modify extra information for scheduler jobs
  * @param id itemid
  */
-function scheduler_admin_modify()
+function scheduler_admin_modify(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminScheduler')) {
         return;
@@ -28,7 +28,7 @@ function scheduler_admin_modify()
     }
 
     if (empty($data['itemid'])) {
-        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'));
+        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $context);
         return true;
     }
 
@@ -46,7 +46,12 @@ function scheduler_admin_modify()
         if (!$isvalid) {
             var_dump($data['object']->getInvalids());
             exit;
-            xarController::redirect(xarController::URL('scheduler', 'admin', 'modify', ['itemid' => $itemid]));
+            xarController::redirect(xarController::URL(
+                'scheduler',
+                'admin',
+                'modify',
+                ['itemid' => $itemid]
+            ), null, $context);
         }
 
         // Reset this job as having not yet run
@@ -56,7 +61,7 @@ function scheduler_admin_modify()
 
         $itemid = $data['object']->updateItem(['itemid' => $data['itemid']]);
 
-        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'));
+        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $context);
         return true;
 
         if (!xarVar::fetch('config', 'isset', $config, [], xarVar::NOT_REQUIRED)) {

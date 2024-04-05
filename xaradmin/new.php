@@ -14,7 +14,7 @@
  * Modify extra information for scheduler jobs
  * @param id itemid
  */
-function scheduler_admin_new()
+function scheduler_admin_new(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminScheduler')) {
         return;
@@ -48,11 +48,11 @@ function scheduler_admin_new()
         if (!$isvalid) {
             var_dump($data['object']->getInvalids());
             exit;
-            xarController::redirect(xarController::URL('scheduler', 'admin', 'new'));
+            xarController::redirect(xarController::URL('scheduler', 'admin', 'new'), null, $context);
         }
 
         $itemid = $data['object']->createItem();
-        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'));
+        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $context);
         return true;
     }
     return $data;
