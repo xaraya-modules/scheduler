@@ -12,7 +12,7 @@
  */
 /**
  * Modify extra information for scheduler jobs
- * @param id itemid
+ * @param array $args id itemid
  */
 function scheduler_admin_modify(array $args = [], $context = null)
 {

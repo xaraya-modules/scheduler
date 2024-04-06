@@ -50,6 +50,7 @@ function scheduler_admin_modifyconfig(array $args = [], $context = null)
                 case 'general':
                     $isvalid = $data['module_settings']->checkInput();
                     if (!$isvalid) {
+                        $data['context'] ??= $context;
                         return xarTpl::module('scheduler', 'admin', 'modifyconfig', $data);
                     } else {
                         $itemid = $data['module_settings']->updateItem();
