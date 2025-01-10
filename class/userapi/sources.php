@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @package modules\scheduler
+ * @category Xaraya Web Applications Framework
+ * @version 2.5.7
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link https://github.com/mikespub/xaraya-modules
+**/
+
+namespace Xaraya\Modules\Scheduler\UserApi;
+
+use Xaraya\Modules\MethodClass;
+use sys;
+use BadParameterException;
+
+sys::import('xaraya.modules.method');
+
+/**
+ * scheduler userapi sources function
+ */
+class SourcesMethod extends MethodClass
+{
+    /** functions imported by bermuda_cleanup */
+
+    /**
+     * Define the list of available trigger source types
+     * @author mikespub
+     * @return array of intervals
+     */
+    public function __invoke(array $args = [])
+    {
+        $triggers = [
+            1 => xarML('Localhost'),
+            2 => xarML('IP address (direct connection)'),
+            3 => xarML('IP address (behind proxy)'),
+            4 => xarML('Host name'),
+        ];
+
+        return $triggers;
+    }
+}

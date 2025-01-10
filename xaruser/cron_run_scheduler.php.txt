@@ -3,26 +3,35 @@
 // This file will call required URL of the scheduler module to trigger scheduler from outside
 
 // Uncomment the next 2 lines for going live
-callScheduler();
-writeInLog();
+scheduler_callScheduler();
+scheduler_writeInLog();
 
-function writeInLog()
-{
-    // Call the scheduler using the default route (to make sure the URL is solvable)
-    $url = xarController::URL('scheduler', 'user', 'test', [], null, null, [], 'default');
-    $content = getUrlContent($url);
-    echo $content;
-}
-
-function callScheduler()
+function scheduler_callScheduler()
 {
     // Call the scheduler using the default route (to make sure the URL is solvable)
     $url = xarController::URL('scheduler', 'user', 'main', [], null, null, [], 'default');
-    $content = getUrlContent($url);
+    $content = scheduler_getUrlContent($url);
     echo $content;
 }
 
-function getUrlContent($url, $loop = 0, $delay = 0)
+function scheduler_writeInLog()
+{
+    $date = date('d.m.Y h:i:s');
+
+    // The Xaraya log (if enabled)
+    xarLog::message('Entered in cron_run_scheduler');
+    xarLog::message('Current Date time');
+    xarLog::variable('datetime', $date);
+
+    // The scheduler test log
+    $msg = "Current Date";
+    $log = $msg . "   |  Date:  " . $date . "\n";
+    $path = sys::varpath() . "/logs/testscheduler.log";
+    error_log($log, 3, $path);
+    return true;
+}
+
+function scheduler_getUrlContent($url, $loop = 0, $delay = 0)
 {
     $file_contents = "";
     for ($loopCount = 0; $loopCount <= $loop; $loopCount++) {

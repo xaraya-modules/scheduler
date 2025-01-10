@@ -1,39 +1,25 @@
 <?php
-/**
- * Scheduler Module
- *
- * @package modules
- * @subpackage scheduler module
- * @category Third Party Xaraya Module
- * @version 2.0.0
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://xaraya.com/index.php/release/189.html
- * @author mikespub
- */
-/**
- * the main user function - only used for external triggers
- * @param  $args ['itemid'] job id (optional)
- */
-function scheduler_user_test(array $args = [], $context = null)
-{
-    callScheduler();
-    writeInLog();
-}
 
-function callScheduler()
+// This file will call required URL of the scheduler module to trigger scheduler from outside
+
+// Uncomment the next 2 lines for going live
+scheduler_callScheduler();
+scheduler_writeInLog();
+
+function scheduler_callScheduler()
 {
     // Call the scheduler using the default route (to make sure the URL is solvable)
     $url = xarController::URL('scheduler', 'user', 'main', [], null, null, [], 'default');
-    $content = getUrlContent($url);
-    return true;
+    $content = scheduler_getUrlContent($url);
+    echo $content;
 }
 
-function writeInLog()
+function scheduler_writeInLog()
 {
     $date = date('d.m.Y h:i:s');
 
     // The Xaraya log (if enabled)
-    xarLog::message('Entered in scheduler_user_test');
+    xarLog::message('Entered in cron_run_scheduler');
     xarLog::message('Current Date time');
     xarLog::variable('datetime', $date);
 
@@ -45,7 +31,7 @@ function writeInLog()
     return true;
 }
 
-function getUrlContent($url, $loop = 0, $delay = 0)
+function scheduler_getUrlContent($url, $loop = 0, $delay = 0)
 {
     $file_contents = "";
     for ($loopCount = 0; $loopCount <= $loop; $loopCount++) {
