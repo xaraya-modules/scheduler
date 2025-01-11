@@ -16,6 +16,7 @@ use xarModVars;
 use xarMod;
 use xarUser;
 use xarConfigVars;
+use xarController;
 use sys;
 use BadParameterException;
 

@@ -19,8 +19,9 @@ use xarModVars;
 use xarUser;
 use xarConfigVars;
 use xarVar;
+use DataObjectFactory;
 use sys;
-use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 

@@ -20,6 +20,7 @@ use xarModVars;
 use xarMasks;
 use xarPrivileges;
 use xarMod;
+use PropertyRegistration;
 use sys;
 use Exception;
 

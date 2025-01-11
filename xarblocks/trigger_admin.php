@@ -44,7 +44,7 @@ class TriggerBlockAdmin extends TriggerBlock implements iBlock
      * Updates the Block config from the Blocks Admin
      * @param $data array containing title,content
      */
-    public function update()
+    public function update($data = [])
     {
         $vars = [];
         if (!xarVar::fetch('showstatus', 'checkbox', $vars['showstatus'], 0, xarVar::DONT_SET)) {
