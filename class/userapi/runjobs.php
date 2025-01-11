@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
+
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarServer;
 use xarMod;
@@ -27,6 +29,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi runjobs function
+ * @extends MethodClass<UserApi>
  */
 class RunjobsMethod extends MethodClass
 {

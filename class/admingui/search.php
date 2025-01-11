@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
+
+use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin search function
+ * @extends MethodClass<AdminGui>
  */
 class SearchMethod extends MethodClass
 {

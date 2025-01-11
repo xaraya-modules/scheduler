@@ -18,6 +18,14 @@ sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the scheduler user API
+ *
+ * @method mixed get(array $args)
+ * @method mixed getall(array $args)
+ * @method mixed intervals(array $args)
+ * @method mixed nextrun(array $args)
+ * @method mixed runjobs(array $args)
+ * @method mixed sources(array $args)
+ * @method mixed triggers(array $args)
  * @extends UserApiClass<Module>
  */
 class UserApi extends UserApiClass

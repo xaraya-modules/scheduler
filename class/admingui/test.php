@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
+
+use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarController;
@@ -25,6 +27,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin test function
+ * @extends MethodClass<AdminGui>
  */
 class TestMethod extends MethodClass
 {

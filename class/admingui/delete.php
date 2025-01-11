@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
+
+use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarSecurity;
@@ -25,6 +27,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin delete function
+ * @extends MethodClass<AdminGui>
  */
 class DeleteMethod extends MethodClass
 {

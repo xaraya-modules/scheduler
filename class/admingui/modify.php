@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
+
+use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -26,6 +28,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin modify function
+ * @extends MethodClass<AdminGui>
  */
 class ModifyMethod extends MethodClass
 {

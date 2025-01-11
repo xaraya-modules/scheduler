@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
+
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use DataObjectFactory;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi get function
+ * @extends MethodClass<UserApi>
  */
 class GetMethod extends MethodClass
 {

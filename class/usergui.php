@@ -19,6 +19,9 @@ sys::import('modules.scheduler.class.userapi');
 
 /**
  * Handle the scheduler user GUI
+ *
+ * @method mixed main(array $args)
+ * @method mixed test(array $args)
  * @extends UserGuiClass<Module>
  */
 class UserGui extends UserGuiClass

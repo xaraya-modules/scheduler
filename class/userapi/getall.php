@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
+
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use DataObjectFactory;
 use DataPropertyMaster;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi getall function
+ * @extends MethodClass<UserApi>
  */
 class GetallMethod extends MethodClass
 {

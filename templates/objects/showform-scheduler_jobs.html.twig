@@ -115,9 +115,9 @@
                 <div class="xar-col">
                     {% if not config['crontab']['nextrun'] %}
                         {% set nextrun = xar_apifunc('scheduler','user','nextrun',config['crontab']) %}
-                        {{ xar_coremethod('xarLocale', 'formatDate', ['%a, %d %B %Y %H.%M.%S %Z',nextrun]) }}
+                        {{ xar_coremethod('xarLocale', 'formatDate', '%a, %d %B %Y %H.%M.%S %Z',nextrun) }}
                     {% else %}
-                        {{ xar_coremethod('xarLocale', 'formatDate', ['%a, %d %B %Y %H.%M.%S %Z',config['crontab']['nextrun']]) }}
+                        {{ xar_coremethod('xarLocale', 'formatDate', '%a, %d %B %Y %H.%M.%S %Z',config['crontab']['nextrun']) }}
                     {% endif %}
                 </div>
             </div>

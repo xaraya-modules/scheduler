@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
+
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use sys;
 use BadParameterException;
@@ -19,6 +21,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi triggers function
+ * @extends MethodClass<UserApi>
  */
 class TriggersMethod extends MethodClass
 {

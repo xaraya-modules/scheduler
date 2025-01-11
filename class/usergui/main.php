@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserGui;
 
+
+use Xaraya\Modules\Scheduler\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarModVars;
 use xarMod;
@@ -24,6 +26,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * scheduler user main function
+ * @extends MethodClass<UserGui>
  */
 class MainMethod extends MethodClass
 {
