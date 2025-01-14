@@ -34,7 +34,7 @@ class SearchMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 

@@ -34,18 +34,18 @@ class NewMethod extends MethodClass
 
     /**
      * Modify extra information for scheduler jobs
-     * @param array $args id itemid
+     * @param array<mixed> $args id itemid
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 
-        if (!xarVar::fetch('confirm', 'isset', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('confirm', 'isset', $confirm, '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('addjob', 'str', $addjob, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('addjob', 'str', $addjob, '', xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -70,11 +70,11 @@ class NewMethod extends MethodClass
             if (!$isvalid) {
                 var_dump($data['object']->getInvalids());
                 exit;
-                xarController::redirect(xarController::URL('scheduler', 'admin', 'new'), null, $this->getContext());
+                $this->redirect($this->getUrl('admin', 'new'));
             }
 
             $itemid = $data['object']->createItem();
-            xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $this->getContext());
+            $this->redirect($this->getUrl('admin', 'view'));
             return true;
         }
         return $data;

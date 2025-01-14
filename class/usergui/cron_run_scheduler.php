@@ -9,7 +9,7 @@ scheduler_writeInLog();
 function scheduler_callScheduler()
 {
     // Call the scheduler using the default route (to make sure the URL is solvable)
-    $url = xarController::URL('scheduler', 'user', 'main', [], null, null, [], 'default');
+    $url = xarController::URL( 'scheduler', 'user', 'main', [], null, null, [], 'default');
     $content = scheduler_getUrlContent($url);
     echo $content;
 }

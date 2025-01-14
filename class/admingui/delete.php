@@ -36,21 +36,22 @@ class DeleteMethod extends MethodClass
     /**
      * delete a scheduler job
      * @author mikespub
-     * @param mixed $args ['itemid'] job id
-     * @return true on success, void on failure
+     * @param array<mixed> $args
+     * @var mixed $itemid job id
+     * @return array|true|void on success, void on failure
      */
     public function __invoke(array $args = [])
     {
         // Get parameters
-        if (!xarVar::fetch('itemid', 'id', $itemid)) {
+        if (!$this->fetch('itemid', 'id', $itemid)) {
             return;
         }
-        if (!xarVar::fetch('confirm', 'str:1:', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('confirm', 'str:1:', $confirm, '', xarVar::NOT_REQUIRED)) {
             return;
         }
 
         // Security Check
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 
@@ -63,7 +64,7 @@ class DeleteMethod extends MethodClass
             $job->getItem(['itemid' => $itemid]);
 
             if (empty($job)) {
-                $msg = xarML(
+                $msg = $this->translate(
                     'Job #(1) for #(2) function #(3)() in module #(4)',
                     $itemid,
                     'admin',
@@ -73,7 +74,7 @@ class DeleteMethod extends MethodClass
                 throw new Exception($msg);
             }
 
-            $data['authid'] = xarSec::genAuthKey();
+            $data['authid'] = $this->genAuthKey();
             $data['triggers'] = xarMod::apiFunc('scheduler', 'user', 'triggers');
             $data['job'] = $job;
             $data['properties'] = $job->properties;
@@ -82,13 +83,13 @@ class DeleteMethod extends MethodClass
         }
 
         // Confirm Auth Key
-        if (!xarSec::confirmAuthKey()) {
+        if (!$this->confirmAuthKey()) {
             return;
         }
 
         $job->deleteItem(['itemid' => $itemid]);
         // Pass to API
-        xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $this->getContext());
+        $this->redirect($this->getUrl('admin', 'view'));
         return true;
     }
 }

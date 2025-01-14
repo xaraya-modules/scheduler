@@ -39,15 +39,15 @@ class ViewMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 
         $data = [];
 
-        $data['trigger'] = xarModVars::get('scheduler', 'trigger');
-        $data['checktype'] = xarModVars::get('scheduler', 'checktype');
-        $data['checkvalue'] = xarModVars::get('scheduler', 'checkvalue');
+        $data['trigger'] = $this->getModVar('trigger');
+        $data['checktype'] = $this->getModVar('checktype');
+        $data['checkvalue'] = $this->getModVar('checkvalue');
 
         $data['ip'] = xarServer::getVar('REMOTE_ADDR');
 
@@ -58,13 +58,13 @@ class ViewMethod extends MethodClass
             $data['ip'] = xarVar::prepForDisplay($data['ip']);
         }
 
-        $jobs = xarModVars::get('scheduler', 'jobs');
+        $jobs = $this->getModVar('jobs');
         if (empty($jobs)) {
             $data['jobs'] = [];
         } else {
             $data['jobs'] = unserialize($jobs);
         }
-        $maxid = xarModVars::get('scheduler', 'maxjobid');
+        $maxid = $this->getModVar('maxjobid');
         if (!isset($maxid)) {
             // re-number jobs starting from 1 and save maxid
             $maxid = 0;
@@ -73,18 +73,18 @@ class ViewMethod extends MethodClass
                 $maxid++;
                 $newjobs[$maxid] = $job;
             }
-            xarModVars::set('scheduler', 'maxjobid', $maxid);
+            $this->setModVar('maxjobid', $maxid);
             $serialjobs = serialize($newjobs);
-            xarModVars::set('scheduler', 'jobs', $serialjobs);
+            $this->setModVar('jobs', $serialjobs);
             $data['jobs'] = $newjobs;
         }
 
-        if (!xarVar::fetch('addjob', 'str', $addjob, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('addjob', 'str', $addjob, '', xarVar::NOT_REQUIRED)) {
             return;
         }
         if (!empty($addjob) && preg_match('/^(\w+);(\w+);(\w+)$/', $addjob, $matches)) {
             $maxid++;
-            xarModVars::set('scheduler', 'maxjobid', $maxid);
+            $this->setModVar('maxjobid', $maxid);
             $data['jobs'][$maxid] = [
                 'module' => $matches[1],
                 'type' => $matches[2],
@@ -104,7 +104,7 @@ class ViewMethod extends MethodClass
             'lastrun' => '',
             'result' => '',
         ];
-        $data['lastrun'] = xarModVars::get('scheduler', 'lastrun');
+        $data['lastrun'] = $this->getModVar('lastrun');
 
         $modules = xarMod::apiFunc(
             'modules',

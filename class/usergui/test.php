@@ -31,7 +31,8 @@ class TestMethod extends MethodClass
 
     /**
      * the main user function - only used for external triggers
-     * @param mixed $args ['itemid'] job id (optional)
+     * @param array<mixed> $args
+     * @var mixed $itemid job id (optional)
      */
     public function __invoke(array $args = [])
     {

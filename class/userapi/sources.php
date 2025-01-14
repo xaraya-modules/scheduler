@@ -35,10 +35,10 @@ class SourcesMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $triggers = [
-            1 => xarML('Localhost'),
-            2 => xarML('IP address (direct connection)'),
-            3 => xarML('IP address (behind proxy)'),
-            4 => xarML('Host name'),
+            1 => $this->translate('Localhost'),
+            2 => $this->translate('IP address (direct connection)'),
+            3 => $this->translate('IP address (behind proxy)'),
+            4 => $this->translate('Host name'),
         ];
 
         return $triggers;

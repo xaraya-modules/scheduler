@@ -32,10 +32,11 @@ class GetallMethod extends MethodClass
     /**
      * get information about all scheduler jobs
      * @author mikespub
-     * @param string $args ['module']: module name +
-     * @param string $args ['type']: api type +
-     * @param string $args ['function']: function name, or
-     * @param int $args ['trigger']: 0: disabled, 1: external, 2: block, 3: event
+     * @param array<mixed> $args
+     * @var string $module: module name +
+     * @var string $type: api type +
+     * @var string $function: function name, or
+     * @var int $trigger: 0: disabled, 1: external, 2: block, 3: event
      * @return array of jobs and their info
      */
     public function __invoke(array $args = [])

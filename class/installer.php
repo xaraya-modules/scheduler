@@ -145,11 +145,11 @@ class Installer extends InstallerClass
         #
         # Set up modvars
         #
-        xarModVars::set('scheduler', 'trigger', 'disabled');
-        xarModVars::set('scheduler', 'lastrun', 0);
-        xarModVars::set('scheduler', 'items_per_page', 20);
-        xarModVars::set('scheduler', 'interval', 5 * 60);
-        xarModVars::set('scheduler', 'debugmode', false);
+        $this->setModVar('trigger', 'disabled');
+        $this->setModVar('lastrun', 0);
+        $this->setModVar('items_per_page', 20);
+        $this->setModVar('interval', 5 * 60);
+        $this->setModVar('debugmode', false);
         #
         # Register masks
         #
@@ -213,13 +213,13 @@ class Installer extends InstallerClass
                 $checktypes = xarMod::apiFunc('scheduler', 'user', 'sources');
 
                 // fetch modvars
-                $checktype = xarModVars::get('scheduler', 'checktype');
-                $checkvalue = xarModVars::get('scheduler', 'checkvalue');
-                $jobs = xarModVars::get('scheduler', 'jobs');
-                $lastrun = xarModVars::get('scheduler', 'lastrun');
-                $maxjobid = xarModVars::get('scheduler', 'maxjobid');
-                $running = xarModVars::get('scheduler', 'running');
-                $trigger = xarModVars::get('scheduler', 'trigger');
+                $checktype = $this->getModVar('checktype');
+                $checkvalue = $this->getModVar('checkvalue');
+                $jobs = $this->getModVar('jobs');
+                $lastrun = $this->getModVar('lastrun');
+                $maxjobid = $this->getModVar('maxjobid');
+                $running = $this->getModVar('running');
+                $trigger = $this->getModVar('trigger');
 
                 switch ($trigger) {
                     case 'external':
@@ -256,6 +256,10 @@ class Installer extends InstallerClass
                 // import modvar data into table
                 $jobs = unserialize($jobs);
 
+                // Get database information
+                $dbconn = xarDB::getConn();
+                $xartable = & xarDB::getTables();
+
                 $table = $xartable['scheduler_jobs'];
 
                 foreach ($jobs as $id => $job) {
@@ -282,7 +286,7 @@ class Installer extends InstallerClass
                     $result = $dbconn->Execute($query, $bindvars);
 
                     // create running modvar for each job
-                    xarModVars::set('scheduler', 'running.' . $id, 0);
+                    $this->setModVar('running.' . $id, 0);
                 }
 
                 // delete modvars

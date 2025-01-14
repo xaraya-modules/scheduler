@@ -36,16 +36,17 @@ class TestMethod extends MethodClass
     /**
      * Test a scheduler job
      * @author mikespub
-     * @param mixed $args ['itemid'] job id
-     * @return true on success, void on failure
+     * @param array<mixed> $args
+     * @var mixed $itemid job id
+     * @return array|string|true|void on success, void on failure
      */
     public function __invoke(array $args = [])
     {
         // Get parameters
-        if (!xarVar::fetch('itemid', 'id', $itemid, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('itemid', 'id', $itemid, 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('confirm', 'str:1:', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('confirm', 'str:1:', $confirm, '', xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -54,7 +55,7 @@ class TestMethod extends MethodClass
         }
 
         // Security Check
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 
@@ -66,7 +67,7 @@ class TestMethod extends MethodClass
         }
 
         // Confirm Auth Key
-        if (!xarSec::confirmAuthKey()) {
+        if (!$this->confirmAuthKey()) {
             return;
         }
 

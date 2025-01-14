@@ -36,23 +36,23 @@ class ModifyMethod extends MethodClass
 
     /**
      * Modify extra information for scheduler jobs
-     * @param array $args id itemid
+     * @param array<mixed> $args id itemid
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 
-        if (!xarVar::fetch('confirm', 'isset', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('confirm', 'isset', $confirm, '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('itemid', 'id', $data['itemid'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('itemid', 'id', $data['itemid'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
 
         if (empty($data['itemid'])) {
-            xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $this->getContext());
+            $this->redirect($this->getUrl('admin', 'view'));
             return true;
         }
 
@@ -61,7 +61,7 @@ class ModifyMethod extends MethodClass
         $data['object']->getItem(['itemid' => $data['itemid']]);
 
         if (!empty($confirm)) {
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return;
             }
 
@@ -70,12 +70,11 @@ class ModifyMethod extends MethodClass
             if (!$isvalid) {
                 var_dump($data['object']->getInvalids());
                 exit;
-                xarController::redirect(xarController::URL(
-                    'scheduler',
+                $this->redirect($this->getUrl(
                     'admin',
                     'modify',
                     ['itemid' => $itemid]
-                ), null, $this->getContext());
+                ));
             }
 
             // Reset this job as having not yet run
@@ -85,10 +84,10 @@ class ModifyMethod extends MethodClass
 
             $itemid = $data['object']->updateItem(['itemid' => $data['itemid']]);
 
-            xarController::redirect(xarController::URL('scheduler', 'admin', 'view'), null, $this->getContext());
+            $this->redirect($this->getUrl('admin', 'view'));
             return true;
 
-            if (!xarVar::fetch('config', 'isset', $config, [], xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('config', 'isset', $config, [], xarVar::NOT_REQUIRED)) {
                 return;
             }
             if (empty($config)) {
@@ -105,7 +104,7 @@ class ModifyMethod extends MethodClass
             $job['config'] = $config;
 
             $serialjobs = serialize($jobs);
-            xarModVars::set('scheduler', 'jobs', $serialjobs);
+            $this->setModVar('jobs', $serialjobs);
         }
 
 

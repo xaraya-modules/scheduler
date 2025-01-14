@@ -31,17 +31,18 @@ class GetMethod extends MethodClass
     /**
      * get information about a scheduler job
      * @author mikespub
-     * @param mixed $args ['module'] module +
-     * @param mixed $args ['functype'] type +
-     * @param mixed $args ['func'] API function, or
-     * @param mixed $args ['itemid'] job id
+     * @param array<mixed> $args
+     * @var mixed $module module +
+     * @var mixed $functype type +
+     * @var mixed $func API function, or
+     * @var mixed $itemid job id
      * @return array of job info on success, void on failure
      */
     public function __invoke(array $args = [])
     {
         extract($args);
         if ((empty($itemid) || !is_numeric($itemid)) && (empty($module) || !is_string($module)) && (empty($type) || !is_string($type)) && (empty($func) || !is_string($func))) {
-            throw new Exception(xarML('No itemid or URL parameters passed'));
+            throw new Exception($this->translate('No itemid or URL parameters passed'));
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');

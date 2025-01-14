@@ -41,14 +41,14 @@ class ModifyconfigMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security Check
-        if (!xarSecurity::check('AdminScheduler')) {
+        if (!$this->checkAccess('AdminScheduler')) {
             return;
         }
 
-        if (!xarVar::fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+        if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
             return;
         }
-        if (!xarVar::fetch('tab', 'str:1', $data['tab'], 'general', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('tab', 'str:1', $data['tab'], 'general', xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -66,7 +66,7 @@ class ModifyconfigMethod extends MethodClass
                 break;
             case 'update':
                 // Confirm authorisation code
-                if (!xarSec::confirmAuthKey()) {
+                if (!$this->confirmAuthKey()) {
                     return xarController::badRequest('bad_author', $this->getContext());
                 }
 
@@ -80,10 +80,10 @@ class ModifyconfigMethod extends MethodClass
                             $itemid = $data['module_settings']->updateItem();
                         }
 
-                        if (!xarVar::fetch('interval', 'int', $interval, xarModVars::get('scheduler', 'interval'), xarVar::NOT_REQUIRED)) {
+                        if (!$this->fetch('interval', 'int', $interval, $this->getModVar('interval'), xarVar::NOT_REQUIRED)) {
                             return;
                         }
-                        if (!xarVar::fetch('debugmode', 'checkbox', $debugmode, xarModVars::get('scheduler', 'debugmode'), xarVar::NOT_REQUIRED)) {
+                        if (!$this->fetch('debugmode', 'checkbox', $debugmode, $this->getModVar('debugmode'), xarVar::NOT_REQUIRED)) {
                             return;
                         }
 
