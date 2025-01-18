@@ -38,14 +38,14 @@ class NewMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
-        if (!$this->fetch('confirm', 'isset', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $confirm)) {
             return;
         }
-        if (!$this->fetch('addjob', 'str', $addjob, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('addjob', $addjob, 'str', '')) {
             return;
         }
 
@@ -70,11 +70,11 @@ class NewMethod extends MethodClass
             if (!$isvalid) {
                 var_dump($data['object']->getInvalids());
                 exit;
-                $this->redirect($this->getUrl('admin', 'new'));
+                $this->ctl()->redirect($this->mod()->getURL('admin', 'new'));
             }
 
             $itemid = $data['object']->createItem();
-            $this->redirect($this->getUrl('admin', 'view'));
+            $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
             return true;
         }
         return $data;

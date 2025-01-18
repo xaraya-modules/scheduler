@@ -35,10 +35,10 @@ class SourcesMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $triggers = [
-            1 => $this->translate('Localhost'),
-            2 => $this->translate('IP address (direct connection)'),
-            3 => $this->translate('IP address (behind proxy)'),
-            4 => $this->translate('Host name'),
+            1 => $this->ml('Localhost'),
+            2 => $this->ml('IP address (direct connection)'),
+            3 => $this->ml('IP address (behind proxy)'),
+            4 => $this->ml('Host name'),
         ];
 
         return $triggers;

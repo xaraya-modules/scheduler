@@ -40,19 +40,19 @@ class ModifyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
-        if (!$this->fetch('confirm', 'isset', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $confirm)) {
             return;
         }
-        if (!$this->fetch('itemid', 'id', $data['itemid'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('itemid', $data['itemid'], 'id', 0)) {
             return;
         }
 
         if (empty($data['itemid'])) {
-            $this->redirect($this->getUrl('admin', 'view'));
+            $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
             return true;
         }
 
@@ -61,7 +61,7 @@ class ModifyMethod extends MethodClass
         $data['object']->getItem(['itemid' => $data['itemid']]);
 
         if (!empty($confirm)) {
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return;
             }
 
@@ -70,7 +70,7 @@ class ModifyMethod extends MethodClass
             if (!$isvalid) {
                 var_dump($data['object']->getInvalids());
                 exit;
-                $this->redirect($this->getUrl(
+                $this->ctl()->redirect($this->mod()->getURL(
                     'admin',
                     'modify',
                     ['itemid' => $itemid]
@@ -84,10 +84,10 @@ class ModifyMethod extends MethodClass
 
             $itemid = $data['object']->updateItem(['itemid' => $data['itemid']]);
 
-            $this->redirect($this->getUrl('admin', 'view'));
+            $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
             return true;
 
-            if (!$this->fetch('config', 'isset', $config, [], xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('config', $config, 'isset', [])) {
                 return;
             }
             if (empty($config)) {
@@ -104,7 +104,7 @@ class ModifyMethod extends MethodClass
             $job['config'] = $config;
 
             $serialjobs = serialize($jobs);
-            $this->setModVar('jobs', $serialjobs);
+            $this->mod()->setVar('jobs', $serialjobs);
         }
 
 

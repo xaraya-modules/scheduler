@@ -23,8 +23,7 @@ use sys;
  * @author  John Cox <admin@dinerminor.com>
  * @access  public
  * @param   none
- * @return  nothing
- * @throws  no exceptions
+ * @return  void
  * @todo    nothing
 */
 sys::import('modules.scheduler.xarblocks.trigger');

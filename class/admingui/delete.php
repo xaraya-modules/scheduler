@@ -43,15 +43,15 @@ class DeleteMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Get parameters
-        if (!$this->fetch('itemid', 'id', $itemid)) {
+        if (!$this->var()->get('itemid', $itemid), 'id') {
             return;
         }
-        if (!$this->fetch('confirm', 'str:1:', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $confirm, 'str:1:', '')) {
             return;
         }
 
         // Security Check
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
@@ -64,7 +64,7 @@ class DeleteMethod extends MethodClass
             $job->getItem(['itemid' => $itemid]);
 
             if (empty($job)) {
-                $msg = $this->translate(
+                $msg = $this->ml(
                     'Job #(1) for #(2) function #(3)() in module #(4)',
                     $itemid,
                     'admin',
@@ -74,7 +74,7 @@ class DeleteMethod extends MethodClass
                 throw new Exception($msg);
             }
 
-            $data['authid'] = $this->genAuthKey();
+            $data['authid'] = $this->sec()->genAuthKey();
             $data['triggers'] = xarMod::apiFunc('scheduler', 'user', 'triggers');
             $data['job'] = $job;
             $data['properties'] = $job->properties;
@@ -83,13 +83,13 @@ class DeleteMethod extends MethodClass
         }
 
         // Confirm Auth Key
-        if (!$this->confirmAuthKey()) {
+        if (!$this->sec()->confirmAuthKey()) {
             return;
         }
 
         $job->deleteItem(['itemid' => $itemid]);
         // Pass to API
-        $this->redirect($this->getUrl('admin', 'view'));
+        $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
         return true;
     }
 }

@@ -43,10 +43,10 @@ class TestMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Get parameters
-        if (!$this->fetch('itemid', 'id', $itemid, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('itemid', $itemid, 'id', 0)) {
             return;
         }
-        if (!$this->fetch('confirm', 'str:1:', $confirm, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $confirm, 'str:1:', '')) {
             return;
         }
 
@@ -55,7 +55,7 @@ class TestMethod extends MethodClass
         }
 
         // Security Check
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
@@ -67,7 +67,7 @@ class TestMethod extends MethodClass
         }
 
         // Confirm Auth Key
-        if (!$this->confirmAuthKey()) {
+        if (!$this->sec()->confirmAuthKey()) {
             return;
         }
 

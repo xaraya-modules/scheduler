@@ -42,7 +42,7 @@ class GetMethod extends MethodClass
     {
         extract($args);
         if ((empty($itemid) || !is_numeric($itemid)) && (empty($module) || !is_string($module)) && (empty($type) || !is_string($type)) && (empty($func) || !is_string($func))) {
-            throw new Exception($this->translate('No itemid or URL parameters passed'));
+            throw new Exception($this->ml('No itemid or URL parameters passed'));
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');

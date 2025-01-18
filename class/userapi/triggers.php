@@ -35,10 +35,10 @@ class TriggersMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $triggers = [
-            0 => $this->translate('Disabled'),
-            1 => $this->translate('External scheduler'),
-            2 => $this->translate('Scheduler block'),
-            //   3 => $this->translate('Event handler') not currently used
+            0 => $this->ml('Disabled'),
+            1 => $this->ml('External scheduler'),
+            2 => $this->ml('Scheduler block'),
+            //   3 => $this->ml('Event handler') not currently used
         ];
 
         return $triggers;

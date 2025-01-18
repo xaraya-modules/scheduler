@@ -39,15 +39,15 @@ class ViewMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
         $data = [];
 
-        $data['trigger'] = $this->getModVar('trigger');
-        $data['checktype'] = $this->getModVar('checktype');
-        $data['checkvalue'] = $this->getModVar('checkvalue');
+        $data['trigger'] = $this->mod()->getVar('trigger');
+        $data['checktype'] = $this->mod()->getVar('checktype');
+        $data['checkvalue'] = $this->mod()->getVar('checkvalue');
 
         $data['ip'] = xarServer::getVar('REMOTE_ADDR');
 
@@ -58,13 +58,13 @@ class ViewMethod extends MethodClass
             $data['ip'] = xarVar::prepForDisplay($data['ip']);
         }
 
-        $jobs = $this->getModVar('jobs');
+        $jobs = $this->mod()->getVar('jobs');
         if (empty($jobs)) {
             $data['jobs'] = [];
         } else {
             $data['jobs'] = unserialize($jobs);
         }
-        $maxid = $this->getModVar('maxjobid');
+        $maxid = $this->mod()->getVar('maxjobid');
         if (!isset($maxid)) {
             // re-number jobs starting from 1 and save maxid
             $maxid = 0;
@@ -73,18 +73,18 @@ class ViewMethod extends MethodClass
                 $maxid++;
                 $newjobs[$maxid] = $job;
             }
-            $this->setModVar('maxjobid', $maxid);
+            $this->mod()->setVar('maxjobid', $maxid);
             $serialjobs = serialize($newjobs);
-            $this->setModVar('jobs', $serialjobs);
+            $this->mod()->setVar('jobs', $serialjobs);
             $data['jobs'] = $newjobs;
         }
 
-        if (!$this->fetch('addjob', 'str', $addjob, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('addjob', $addjob, 'str', '')) {
             return;
         }
         if (!empty($addjob) && preg_match('/^(\w+);(\w+);(\w+)$/', $addjob, $matches)) {
             $maxid++;
-            $this->setModVar('maxjobid', $maxid);
+            $this->mod()->setVar('maxjobid', $maxid);
             $data['jobs'][$maxid] = [
                 'module' => $matches[1],
                 'type' => $matches[2],
@@ -104,7 +104,7 @@ class ViewMethod extends MethodClass
             'lastrun' => '',
             'result' => '',
         ];
-        $data['lastrun'] = $this->getModVar('lastrun');
+        $data['lastrun'] = $this->mod()->getVar('lastrun');
 
         $modules = xarMod::apiFunc(
             'modules',

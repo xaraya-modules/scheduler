@@ -15,6 +15,7 @@ namespace Xaraya\Modules\Scheduler\Blocks;
 
 use BasicBlock;
 use iBlock;
+use xarMLS;
 use xarModVars;
 use xarMod;
 use sys;
@@ -53,7 +54,7 @@ class TriggerBlock extends BasicBlock implements iBlock
                 // check if we have the right trigger
                 $trigger = xarModVars::get('scheduler','trigger');
                 if (empty($trigger) || $trigger != 'block') {
-                    $vars['msg'] = xarML('Wrong trigger');
+                    $vars['msg'] = xarMLS::translate('Wrong trigger');
                     return $vars;
                 }
         */
@@ -66,7 +67,7 @@ class TriggerBlock extends BasicBlock implements iBlock
                 return;
             } else {
                 $diff = time() - $lastrun;
-                $vars['msg'] = xarML('Last run was #(1) minutes #(2) seconds ago', intval($diff / 60), $diff % 60);
+                $vars['msg'] = xarMLS::translate('Last run was #(1) minutes #(2) seconds ago', intval($diff / 60), $diff % 60);
                 return $vars;
             }
         }
@@ -89,7 +90,7 @@ class TriggerBlock extends BasicBlock implements iBlock
             if (empty($vars['showstatus'])) {
                 return;
             } else {
-                $vars['msg'] = xarML('Some other process is running jobs right now');
+                $vars['msg'] = xarMLS::translate('Some other process is running jobs right now');
                 return $vars;
             }
         }
@@ -104,7 +105,7 @@ class TriggerBlock extends BasicBlock implements iBlock
         if (empty($vars['showstatus'])) {
             return;
         } else {
-            $vars['msg'] = xarML('Running Jobs');
+            $vars['msg'] = xarMLS::translate('Running Jobs');
             return $vars;
         }
     }

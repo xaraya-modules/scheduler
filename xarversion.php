@@ -13,7 +13,7 @@
 $modversion['name']           = 'Scheduler';
 $modversion['id']             = '189';
 $modversion['version']        = '2.4.1';
-$modversion['displayname']    = xarML('Scheduler');
+$modversion['displayname']    = xarMLS::translate('Scheduler');
 $modversion['description']    = 'Schedule Xaraya jobs at certain times of the day/week/month (cron)';
 $modversion['credits']        = '';
 $modversion['help']           = '';

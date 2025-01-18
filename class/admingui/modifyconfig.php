@@ -41,14 +41,14 @@ class ModifyconfigMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security Check
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
-        if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+        if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
             return;
         }
-        if (!$this->fetch('tab', 'str:1', $data['tab'], 'general', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('tab', $data['tab'], 'str:1', 'general')) {
             return;
         }
 
@@ -66,7 +66,7 @@ class ModifyconfigMethod extends MethodClass
                 break;
             case 'update':
                 // Confirm authorisation code
-                if (!$this->confirmAuthKey()) {
+                if (!$this->sec()->confirmAuthKey()) {
                     return xarController::badRequest('bad_author', $this->getContext());
                 }
 
@@ -75,15 +75,15 @@ class ModifyconfigMethod extends MethodClass
                         $isvalid = $data['module_settings']->checkInput();
                         if (!$isvalid) {
                             $data['context'] ??= $this->getContext();
-                            return xarTpl::module('scheduler', 'admin', 'modifyconfig', $data);
+                            return $this->mod()->template('modifyconfig', $data);
                         } else {
                             $itemid = $data['module_settings']->updateItem();
                         }
 
-                        if (!$this->fetch('interval', 'int', $interval, $this->getModVar('interval'), xarVar::NOT_REQUIRED)) {
+                        if (!$this->var()->find('interval', $interval, 'int', $this->mod()->getVar('interval'))) {
                             return;
                         }
-                        if (!$this->fetch('debugmode', 'checkbox', $debugmode, $this->getModVar('debugmode'), xarVar::NOT_REQUIRED)) {
+                        if (!$this->var()->find('debugmode', $debugmode, 'checkbox', $this->mod()->getVar('debugmode'))) {
                             return;
                         }
 
@@ -94,7 +94,7 @@ class ModifyconfigMethod extends MethodClass
 
                         foreach ($modvars as $var) {
                             if (isset($$var)) {
-                                xarModVars::set('scheduler', $var, $$var);
+                                $this->mod()->setVar($var, $$var);
                             }
                         }
                         break;

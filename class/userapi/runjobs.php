@@ -69,14 +69,14 @@ class RunjobsMethod extends MethodClass
             $job = xarMod::apiFunc('scheduler', 'user', 'get', $args);
 
             if (empty($job)) {
-                $message =  $this->translate('Invalid job ID');
-                xarLog::message($message, xarLog::LEVEL_WARNING);
+                $message =  $this->ml('Invalid job ID');
+                $this->log()->warning($message);
                 return $message;
             }
             // CHECKME: there are no calls to this function with a parameter $trigger or $triggers
             if ((int) $job['job_trigger'] != $trigger) {
-                $message =  $this->translate('This job has a trigger (#(1)) other than the one specified (#(2))', $triggers[(int) $job['trigger']], $triggers[$trigger]);
-                xarLog::message($message, xarLog::LEVEL_WARNING);
+                $message =  $this->ml('This job has a trigger (#(1)) other than the one specified (#(2))', $triggers[(int) $job['trigger']], $triggers[$trigger]);
+                $this->log()->warning($message);
                 return $message;
             }
 
@@ -105,36 +105,36 @@ class RunjobsMethod extends MethodClass
         # Run the jobs: we go through the loop
         #
         $log_identifier = 'Scheduler runjobs:';
-        $log = $this->translate('#(1) Starting jobs', $log_identifier);
+        $log = $this->ml('#(1) Starting jobs', $log_identifier);
         $logs[] = $log;
-        xarLog::message($log, xarLog::LEVEL_NOTICE);
+        $this->log()->notice($log);
 
         $hasrun = [];
         $now = time();
         foreach ($jobs as $id => $job) {
             $jobname = $job['module'] . "_xar" . $job['type'] . "_" . $job['function'] . " itemid=" . $id;
 
-            $log = $this->translate('#(2) Starting: #(1)', $jobname, $log_identifier);
+            $log = $this->ml('#(2) Starting: #(1)', $jobname, $log_identifier);
             $logs[] = $log;
-            xarLog::message($log, xarLog::LEVEL_NOTICE);
+            $this->log()->notice($log);
 
-            $log = $this->translate('#(2) Trigger is: #(1)', (int) $job['job_trigger'], $log_identifier);
+            $log = $this->ml('#(2) Trigger is: #(1)', (int) $job['job_trigger'], $log_identifier);
             $logs[] = $log;
-            xarLog::message($log, xarLog::LEVEL_NOTICE);
+            $this->log()->notice($log);
 
-            $log = $this->translate('#(2) Interval is: #(1)', $job['job_interval'], $log_identifier);
+            $log = $this->ml('#(2) Interval is: #(1)', $job['job_interval'], $log_identifier);
             $logs[] = $log;
-            xarLog::message($log, xarLog::LEVEL_NOTICE);
+            $this->log()->notice($log);
 
-            $log = $this->translate('#(2) Start date is: #(1), end date is: #(3)', (int) $job['start_date'], $log_identifier, (int) $job['end_date']);
+            $log = $this->ml('#(2) Start date is: #(1), end date is: #(3)', (int) $job['start_date'], $log_identifier, (int) $job['end_date']);
             $logs[] = $log;
-            xarLog::message($log, xarLog::LEVEL_NOTICE);
+            $this->log()->notice($log);
 
             if ((int) $job['job_trigger'] == 0) {
                 // Ignore disabled jobs
-                $log = $this->translate('#(2) Skipped: #(1)', $jobname, $log_identifier);
+                $log = $this->ml('#(2) Skipped: #(1)', $jobname, $log_identifier);
                 $logs[] = $log;
-                xarLog::message($log, xarLog::LEVEL_NOTICE);
+                $this->log()->notice($log);
                 continue;
             } elseif ((int) $job['job_trigger'] != 1) {
                 # --------------------------------------------------------
@@ -144,44 +144,44 @@ class RunjobsMethod extends MethodClass
 
                 // If the interval is 'never', always skip this job
                 if ($job['job_interval'] == '0t') {
-                    $log = $this->translate('#(2) Skipped: #(1) because interval is never', $jobname, $log_identifier);
+                    $log = $this->ml('#(2) Skipped: #(1) because interval is never', $jobname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
                     continue;
 
                     // if we are outside the start- or end-date, skip it
                 } elseif ((!empty($job['start_date']) && $now < $job['start_date']) ||
                           (!empty($job['end_date']) && $now > $job['end_date'])) {
-                    $log = $this->translate('#(2) Skipped: #(1) because not within time limits', $jobname, $log_identifier);
+                    $log = $this->ml('#(2) Skipped: #(1) because not within time limits', $jobname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
                     continue;
 
                     // if this is a crontab job and the next run is later, skip it
                 } elseif ($job['job_interval'] == '0c' && !empty($job['crontab']) &&
                           !empty($job['crontab']['nextrun']) && $now < $job['crontab']['nextrun'] + 60) {
-                    $log = $this->translate('#(2) Skipped: #(1) because next cron defined run is later', $jobname, $log_identifier);
+                    $log = $this->ml('#(2) Skipped: #(1) because next cron defined run is later', $jobname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
                     continue;
 
                     // if this is the first time we run this job and it's not a crontab job, always run it
                 } elseif (empty($job['last_run']) && $job['job_interval'] != '0c') {
-                    $log = $this->translate('#(2) First run for #(1). Will send.', $jobname, $log_identifier);
+                    $log = $this->ml('#(2) First run for #(1). Will send.', $jobname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
 
                     // if the job already ran, check if we need to run it again
                 } else {
                     if (!preg_match('/(\d+)(\w)/', $job['job_interval'], $matches)) {
-                        $log = $this->translate('#(1) invalid interval', $log_identifier);
+                        $log = $this->ml('#(1) invalid interval', $log_identifier);
                         $logs[] = $log;
-                        xarLog::message($log, xarLog::LEVEL_WARNING);
+                        $this->log()->warning($log);
                         continue;
                     }
-                    $log = $this->translate('#(2) Recurring run for #(1). Checking interval since last run.', $jobname, $log_identifier);
+                    $log = $this->ml('#(2) Recurring run for #(1). Checking interval since last run.', $jobname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
 
                     $count = $matches[1];
                     $interval = $matches[2];
@@ -244,9 +244,9 @@ class RunjobsMethod extends MethodClass
                             break;
                     }
                     if ($skip) {
-                        $log = $this->translate('#(2) Skipped: #(1)', $jobname, $log_identifier);
+                        $log = $this->ml('#(2) Skipped: #(1)', $jobname, $log_identifier);
                         $logs[] = $log;
-                        xarLog::message($log, xarLog::LEVEL_NOTICE);
+                        $this->log()->notice($log);
                         continue;
                     }
                 }
@@ -265,17 +265,17 @@ class RunjobsMethod extends MethodClass
                             $hostname = 'localhost';
                             $isvalid = true;
                         }
-                        $log = $this->translate('#(1) Source type: localhost', $log_identifier);
+                        $log = $this->ml('#(1) Source type: localhost', $log_identifier);
                         $logs[] = $log;
-                        xarLog::message($log, xarLog::LEVEL_NOTICE);
+                        $this->log()->notice($log);
                         break;
                     case 2: // IP direct connection
                         if (empty($proxy) && !empty($ip) && $ip == $source) {
                             $isvalid = true;
                         }
-                        $log = $this->translate('#(1) Source type: IP direct connection', $log_identifier);
+                        $log = $this->ml('#(1) Source type: IP direct connection', $log_identifier);
                         $logs[] = $log;
-                        xarLog::message($log, xarLog::LEVEL_NOTICE);
+                        $this->log()->notice($log);
                         break;
                     case 3: // IP behind proxy
                         if (!empty($proxy) && !empty($ip) && $ip == $source) {
@@ -289,9 +289,9 @@ class RunjobsMethod extends MethodClass
                             if (empty($hostname)) {
                                 $hostname = @gethostbyaddr($ip);
                             }
-                            $log = $this->translate('#(2) Source type: host #(1)', $hostname, $log_identifier);
+                            $log = $this->ml('#(2) Source type: host #(1)', $hostname, $log_identifier);
                             $logs[] = $log;
-                            xarLog::message($log, xarLog::LEVEL_NOTICE);
+                            $this->log()->notice($log);
                             if (!empty($hostname) && $hostname == $source) {
                                 $isvalid = true;
                             }
@@ -316,23 +316,23 @@ class RunjobsMethod extends MethodClass
                     }
                 }
                 if (!$isvalid) {
-                    $log = $this->translate('#(2) Skipped: #(1)', $jobname, $log_identifier);
+                    $log = $this->ml('#(2) Skipped: #(1)', $jobname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
                     continue;
                 } else {
-                    $log = $this->translate('#(2) Host: #(1)', $hostname, $log_identifier);
+                    $log = $this->ml('#(2) Host: #(1)', $hostname, $log_identifier);
                     $logs[] = $log;
-                    xarLog::message($log, xarLog::LEVEL_NOTICE);
+                    $this->log()->notice($log);
                 }
             }
 
-            $this->setModVar('running.' . $job['id'], 1);
+            $this->mod()->setVar('running.' . $job['id'], 1);
             // Don't run jobs of modules that are not installed
             if (!xarMod::isAvailable($job['module'])) {
-                $log = $this->translate('#(2) Skipped: #(1)', $jobname, $log_identifier);
+                $log = $this->ml('#(2) Skipped: #(1)', $jobname, $log_identifier);
                 $logs[] = $log;
-                xarLog::message($log, xarLog::LEVEL_NOTICE);
+                $this->log()->notice($log);
                 continue;
             }
             if (!empty($job['parameters'])) {
@@ -342,28 +342,28 @@ class RunjobsMethod extends MethodClass
                     $output = xarMod::apiFunc($job['module'], $job['type'], $job['function']);
                 } catch (Exception $e) {
                     // If we are debugging, then show an error here
-                    if ($this->getModVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
+                    if ($this->mod()->getVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
                         print_r($e->getMessage());
                         exit;
                     }
                 }
             }
             if (empty($output)) {
-                $jobs[$id]['result'] = $this->translate('failed');
-                $log = $this->translate('#(2) Failed: #(1)', $jobname, $log_identifier);
+                $jobs[$id]['result'] = $this->ml('failed');
+                $log = $this->ml('#(2) Failed: #(1)', $jobname, $log_identifier);
                 $logs[] = $log;
-                xarLog::message($log, xarLog::LEVEL_NOTICE);
-                $log = $output ?? $this->translate('No output');
+                $this->log()->notice($log);
+                $log = $output ?? $this->ml('No output');
                 $logs[] = $log;
-                xarLog::message($log, xarLog::LEVEL_NOTICE);
+                $this->log()->notice($log);
             } else {
-                $jobs[$id]['result'] = $this->translate('OK');
-                $log = $this->translate('#(2) Succeeded: #(1)', $jobname, $log_identifier);
+                $jobs[$id]['result'] = $this->ml('OK');
+                $log = $this->ml('#(2) Succeeded: #(1)', $jobname, $log_identifier);
                 $logs[] = $log;
-                xarLog::message($log, xarLog::LEVEL_NOTICE);
+                $this->log()->notice($log);
                 $log = $output;
                 $logs[] = $log;
-                xarLog::message($log, xarLog::LEVEL_NOTICE);
+                $this->log()->notice($log);
             }
             $job['last_run'] = $now;
             $hasrun[$id] = $job;
@@ -374,13 +374,13 @@ class RunjobsMethod extends MethodClass
             #
             $jobobject->setFieldValues($job);
             $jobobject->updateItem(['itemid' => $job['id']]);
-            $log = $this->translate('#(2) Updated: #(1)', $jobname, $log_identifier);
+            $log = $this->ml('#(2) Updated: #(1)', $jobname, $log_identifier);
             $logs[] = $log;
-            xarLog::message($log, xarLog::LEVEL_NOTICE);
+            $this->log()->notice($log);
         }
-        $log = $this->translate('#(1) Done', $log_identifier);
+        $log = $this->ml('#(1) Done', $log_identifier);
         $logs[] = $log;
-        xarLog::message($log, xarLog::LEVEL_NOTICE);
+        $this->log()->notice($log);
 
         // we didn't run anything, so return now
         if (count($hasrun) == 0) {
@@ -389,7 +389,7 @@ class RunjobsMethod extends MethodClass
 
         // Trick : make sure we're dealing with up-to-date information here,
         //         because running all those jobs may have taken a while...
-        //    xarVar::delCached('Mod.Variables.scheduler', 'jobs');
+        //    $this->var()->delCached('Mod.Variables.scheduler', 'jobs');
 
         return $logs;
     }

@@ -40,25 +40,25 @@ class MainMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Check when we last ran the scheduler
-        $lastrun = $this->getModVar('lastrun');
+        $lastrun = $this->mod()->getVar('lastrun');
         $now = time();
 
-        $interval = $this->getModVar('interval');		// The interval is set in modifyconfig
+        $interval = $this->mod()->getVar('interval');		// The interval is set in modifyconfig
         if (!empty($interval)) {
             if (!empty($lastrun) && $lastrun >= $now - $interval) {  // Make sure the defined interval has passed
                 $diff = time() - $lastrun;
-                $data['message'] = $this->translate('Last run was #(1) minutes #(2) seconds ago', intval($diff / 60), $diff % 60);
+                $data['message'] = $this->ml('Last run was #(1) minutes #(2) seconds ago', intval($diff / 60), $diff % 60);
                 return $data;
             }
             // Update the last run time
-            $this->setModVar('lastrun', $now);
+            $this->mod()->setVar('lastrun', $now);
         }
 
-        $this->setModVar('running', 1);
+        $this->mod()->setVar('running', 1);
         $data['output'] = xarMod::apiFunc('scheduler', 'user', 'runjobs');
         xarModVars::delete('scheduler', 'running');
 
-        if ($this->getModVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
+        if ($this->mod()->getVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
             // Show the output only to administrators
             return $data;
         } else {

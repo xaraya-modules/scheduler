@@ -145,11 +145,11 @@ class Installer extends InstallerClass
         #
         # Set up modvars
         #
-        $this->setModVar('trigger', 'disabled');
-        $this->setModVar('lastrun', 0);
-        $this->setModVar('items_per_page', 20);
-        $this->setModVar('interval', 5 * 60);
-        $this->setModVar('debugmode', false);
+        $this->mod()->setVar('trigger', 'disabled');
+        $this->mod()->setVar('lastrun', 0);
+        $this->mod()->setVar('items_per_page', 20);
+        $this->mod()->setVar('interval', 5 * 60);
+        $this->mod()->setVar('debugmode', false);
         #
         # Register masks
         #
@@ -213,13 +213,13 @@ class Installer extends InstallerClass
                 $checktypes = xarMod::apiFunc('scheduler', 'user', 'sources');
 
                 // fetch modvars
-                $checktype = $this->getModVar('checktype');
-                $checkvalue = $this->getModVar('checkvalue');
-                $jobs = $this->getModVar('jobs');
-                $lastrun = $this->getModVar('lastrun');
-                $maxjobid = $this->getModVar('maxjobid');
-                $running = $this->getModVar('running');
-                $trigger = $this->getModVar('trigger');
+                $checktype = $this->mod()->getVar('checktype');
+                $checkvalue = $this->mod()->getVar('checkvalue');
+                $jobs = $this->mod()->getVar('jobs');
+                $lastrun = $this->mod()->getVar('lastrun');
+                $maxjobid = $this->mod()->getVar('maxjobid');
+                $running = $this->mod()->getVar('running');
+                $trigger = $this->mod()->getVar('trigger');
 
                 switch ($trigger) {
                     case 'external':
@@ -286,7 +286,7 @@ class Installer extends InstallerClass
                     $result = $dbconn->Execute($query, $bindvars);
 
                     // create running modvar for each job
-                    $this->setModVar('running.' . $id, 0);
+                    $this->mod()->setVar('running.' . $id, 0);
                 }
 
                 // delete modvars

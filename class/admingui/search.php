@@ -34,7 +34,7 @@ class SearchMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('AdminScheduler')) {
+        if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
 
