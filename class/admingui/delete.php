@@ -43,7 +43,7 @@ class DeleteMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Get parameters
-        if (!$this->var()->get('itemid', $itemid), 'id') {
+        if (!$this->var()->get('itemid', $itemid, 'id')) {
             return;
         }
         if (!$this->var()->find('confirm', $confirm, 'str:1:', '')) {

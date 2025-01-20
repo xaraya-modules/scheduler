@@ -67,7 +67,7 @@ class ModifyconfigMethod extends MethodClass
             case 'update':
                 // Confirm authorisation code
                 if (!$this->sec()->confirmAuthKey()) {
-                    return xarController::badRequest('bad_author', $this->getContext());
+                    return $this->ctl()->badRequest('bad_author', $this->getContext());
                 }
 
                 switch (strtolower($data['tab'])) {

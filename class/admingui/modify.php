@@ -73,7 +73,7 @@ class ModifyMethod extends MethodClass
                 $this->ctl()->redirect($this->mod()->getURL(
                     'admin',
                     'modify',
-                    ['itemid' => $itemid]
+                    ['itemid' => $data['itemid']]
                 ));
             }
 

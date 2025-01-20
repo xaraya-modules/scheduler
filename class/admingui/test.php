@@ -51,7 +51,7 @@ class TestMethod extends MethodClass
         }
 
         if (empty($itemid)) {
-            return xarController::notFound(null, $this->getContext());
+            return $this->ctl()->notFound(null, $this->getContext());
         }
 
         // Security Check
