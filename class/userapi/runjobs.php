@@ -37,8 +37,9 @@ class RunjobsMethod extends MethodClass
 
     /**
      * run scheduler jobs
-     * @param int trigger
-     * @param array jobs
+     * @param array<string, mixed> $args
+     * @var int $trigger
+     * @var array $jobs
      * @return string The log of the jobs
      */
     public function __invoke(array $args = [])
@@ -344,7 +345,7 @@ class RunjobsMethod extends MethodClass
                     // If we are debugging, then show an error here
                     if ($this->mod()->getVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
                         print_r($e->getMessage());
-                        exit;
+                        $this->exit();
                     }
                 }
             }

@@ -69,7 +69,7 @@ class ModifyMethod extends MethodClass
 
             if (!$isvalid) {
                 var_dump($data['object']->getInvalids());
-                exit;
+                $this->exit();
                 $this->ctl()->redirect($this->mod()->getURL(
                     'admin',
                     'modify',
