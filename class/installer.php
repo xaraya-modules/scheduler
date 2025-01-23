@@ -64,9 +64,9 @@ class Installer extends InstallerClass
         #
 
         // Get database information
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
-        $prefix = xarDB::getPrefix();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
+        $prefix = $this->db()->getPrefix();
 
         try {
             $dbconn->begin();
@@ -257,8 +257,8 @@ class Installer extends InstallerClass
                 $jobs = unserialize($jobs);
 
                 // Get database information
-                $dbconn = xarDB::getConn();
-                $xartable = & xarDB::getTables();
+                $dbconn = $this->db()->getConn();
+                $xartable = & $this->db()->getTables();
 
                 $table = $xartable['scheduler_jobs'];
 

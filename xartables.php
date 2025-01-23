@@ -19,9 +19,10 @@
  * @access private
  * @return array
  */
-function scheduler_xartables()
+function scheduler_xartables(?string $prefix = null)
 {
     $tables = [];
-    $tables['scheduler_jobs'] = xarDB::getPrefix() . '_scheduler_jobs';
+    $prefix ??= xarDB::getPrefix();
+    $tables['scheduler_jobs'] = $prefix . '_scheduler_jobs';
     return $tables;
 }

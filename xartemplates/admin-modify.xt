@@ -9,7 +9,7 @@
 
         <form method="post" action="#xarController::URL('scheduler','admin','modify',array('itemid' => $itemid))#">
             <xar:data-form object="$object" tplmodule="scheduler"/>
-            <!--
+            <xar:comment><!--
                 <div class="xar-form-input-wrapper">
                     <label for="job_module" class="xar-form-label">
                         Module
@@ -182,7 +182,7 @@
                     example: 1-5 = from Monday to Friday
                 </div>
             </fieldset>
--->
+--></xar:comment>
             <xar:if condition="xarModVars::get('scheduler','running.' . $itemid)">
                 Warning: This job is currently running - any changes you make now may be overwritten<br/>
             </xar:if>

@@ -7,7 +7,7 @@
 
         <form method="post" action="#xarController::URL('scheduler','admin','new')#">
             <xar:data-form object="$object" tplmodule="scheduler"/>
-<!--
+<xar:comment><!--
             <fieldset>
                 <legend>
                     Crontab
@@ -47,7 +47,7 @@
                     example: 1-5 = from Monday to Friday
                 </div>
             </fieldset>
-            -->
+            --></xar:comment>
             <div class="xar-row">
                 <div class="xar-col">
                     &#160;
