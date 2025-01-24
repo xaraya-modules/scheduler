@@ -92,7 +92,7 @@ class RunjobsMethod extends MethodClass
         # Create a jobs object instance for easy updating
         #
         sys::import('modules.dynamicdata.class.objects.factory');
-        $jobobject = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
+        $jobobject = $this->data()->getObject(['name' => 'scheduler_jobs']);
 
         # --------------------------------------------------------
         #

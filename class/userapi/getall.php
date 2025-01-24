@@ -42,7 +42,7 @@ class GetallMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         sys::import('modules.dynamicdata.class.objects.factory');
-        $object = DataObjectFactory::getObjectList(['name' => 'scheduler_jobs']);
+        $object = $this->data()->getObjectList(['name' => 'scheduler_jobs']);
 
         // We want to get all the fields
         foreach ($object->properties as $key => $value) {

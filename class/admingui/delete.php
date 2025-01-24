@@ -56,7 +56,7 @@ class DeleteMethod extends MethodClass
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $job = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
+        $job = $this->data()->getObject(['name' => 'scheduler_jobs']);
 
         // Check for confirmation
         if (empty($confirm)) {

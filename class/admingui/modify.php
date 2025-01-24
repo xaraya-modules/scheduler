@@ -57,7 +57,7 @@ class ModifyMethod extends MethodClass
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $data['object'] = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
+        $data['object'] = $this->data()->getObject(['name' => 'scheduler_jobs']);
         $data['object']->getItem(['itemid' => $data['itemid']]);
 
         if (!empty($confirm)) {

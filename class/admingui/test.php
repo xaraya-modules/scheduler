@@ -73,7 +73,7 @@ class TestMethod extends MethodClass
 
         // Get the job details
         sys::import('modules.dynamicdata.class.objects.factory');
-        $job = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
+        $job = $this->data()->getObject(['name' => 'scheduler_jobs']);
         $job->getItem(['itemid' => $itemid]);
 
         // Run the job

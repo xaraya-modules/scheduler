@@ -47,11 +47,11 @@ class GetMethod extends MethodClass
 
         sys::import('modules.dynamicdata.class.objects.factory');
         if (!empty($itemid)) {
-            $object = DataObjectFactory::getObject(['name' => 'scheduler_jobs']);
+            $object = $this->data()->getObject(['name' => 'scheduler_jobs']);
             $object->getItem(['itemid' => $args['itemid']]);
             $job = $object->getFieldValues();
         } else {
-            $object = DataObjectFactory::getObjectList(['name' => 'scheduler_jobs']);
+            $object = $this->data()->getObjectList(['name' => 'scheduler_jobs']);
             $object->dataquery->eq('module', $module);
             $object->dataquery->eq('type', $type);
             $object->dataquery->eq('function', $func);
