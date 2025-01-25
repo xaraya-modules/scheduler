@@ -38,6 +38,7 @@ class GetallMethod extends MethodClass
      * @var string $function: function name, or
      * @var int $trigger: 0: disabled, 1: external, 2: block, 3: event
      * @return array of jobs and their info
+     * @see UserApi::getall()
      */
     public function __invoke(array $args = [])
     {

@@ -31,6 +31,7 @@ class TriggersMethod extends MethodClass
      * Define the list of available scheduler triggers
      * @author mikespub
      * @return array of intervals
+     * @see UserApi::triggers()
      */
     public function __invoke(array $args = [])
     {

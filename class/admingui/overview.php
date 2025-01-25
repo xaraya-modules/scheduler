@@ -33,6 +33,7 @@ class OverviewMethod extends MethodClass
      * Overview function that displays the standard Overview page
      * @author jojodee <jojodee@xaraya.com>
      * @return mixed
+     * @see AdminGui::overview()
      */
     public function __invoke(array $args = [])
     {

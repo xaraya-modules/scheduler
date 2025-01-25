@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Scheduler\UserGui;
 
 
 use Xaraya\Modules\Scheduler\UserGui;
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarModVars;
 use xarMod;
@@ -36,9 +37,12 @@ class MainMethod extends MethodClass
      * the main user function - only used for external triggers
      * @param array<mixed> $args
      * @var mixed $itemid job id (optional)
+     * @see UserGui::main()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         // Check when we last ran the scheduler
         $lastrun = $this->mod()->getVar('lastrun');
         $now = time();
@@ -55,7 +59,7 @@ class MainMethod extends MethodClass
         }
 
         $this->mod()->setVar('running', 1);
-        $data['output'] = xarMod::apiFunc('scheduler', 'user', 'runjobs');
+        $data['output'] = $userapi->runjobs();
         xarModVars::delete('scheduler', 'running');
 
         if ($this->mod()->getVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {

@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Scheduler\AdminGui;
 
 
 use Xaraya\Modules\Scheduler\AdminGui;
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarSecurity;
@@ -39,9 +40,12 @@ class DeleteMethod extends MethodClass
      * @param array<mixed> $args
      * @var mixed $itemid job id
      * @return array|true|void on success, void on failure
+     * @see AdminGui::delete()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         // Get parameters
         if (!$this->var()->get('itemid', $itemid, 'id')) {
             return;
@@ -75,7 +79,7 @@ class DeleteMethod extends MethodClass
             }
 
             $data['authid'] = $this->sec()->genAuthKey();
-            $data['triggers'] = xarMod::apiFunc('scheduler', 'user', 'triggers');
+            $data['triggers'] = $userapi->triggers();
             $data['job'] = $job;
             $data['properties'] = $job->properties;
             $data['itemid'] = $itemid;

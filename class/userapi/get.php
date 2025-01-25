@@ -37,6 +37,7 @@ class GetMethod extends MethodClass
      * @var mixed $func API function, or
      * @var mixed $itemid job id
      * @return array of job info on success, void on failure
+     * @see UserApi::get()
      */
     public function __invoke(array $args = [])
     {

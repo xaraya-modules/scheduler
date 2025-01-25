@@ -123,7 +123,7 @@ class CrontabProperty extends DataProperty
         $data['name']     = !empty($data['name']) ? $data['name'] : $this->propertyprefix . $this->id;
         $data['id']       = !empty($data['id']) ? $data['id'] : $this->propertyprefix . $this->id;
 
-        $data['invalid']  = !empty($this->invalid) ? xarMLS::translate('Invalid #(1)', $this->invalid) : '';
+        $data['invalid']  = !empty($this->invalid) ? $this->ml('Invalid #(1)', $this->invalid) : '';
         $value = $this->getValue();
         if (empty($value)) {
             $this->setValue([

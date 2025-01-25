@@ -41,10 +41,13 @@ class RunjobsMethod extends MethodClass
      * @var int $trigger
      * @var array $jobs
      * @return string The log of the jobs
+     * @see UserApi::runjobs()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         # --------------------------------------------------------
         #
@@ -67,7 +70,7 @@ class RunjobsMethod extends MethodClass
         #
         if (!empty($itemid)) {
             // An ID is passed: we will run a single job
-            $job = xarMod::apiFunc('scheduler', 'user', 'get', $args);
+            $job = $userapi->get($args);
 
             if (empty($job)) {
                 $message =  $this->ml('Invalid job ID');
@@ -84,7 +87,7 @@ class RunjobsMethod extends MethodClass
             $jobs[$job['id']] = $job;
         } else {
             // Get all the jobs
-            $jobs = xarMod::apiFunc('scheduler', 'user', 'getall', $args);
+            $jobs = $userapi->getall($args);
         }
 
         # --------------------------------------------------------
@@ -236,11 +239,11 @@ class RunjobsMethod extends MethodClass
                                     $skip = 1; // in fact, this case is already handled above
                                 } else {
                                     // run it now, and calculate the next run for this job
-                                    $jobs[$id]['crontab']['nextrun'] = xarMod::apiFunc('scheduler', 'user', 'nextrun', $job['crontab']);
+                                    $jobs[$id]['crontab']['nextrun'] = $userapi->nextrun($job['crontab']);
                                 }
                             } else {
                                 // run it now, and calculate the next run for this job
-                                $jobs[$id]['crontab']['nextrun'] = xarMod::apiFunc('scheduler', 'user', 'nextrun', $job['crontab']);
+                                $jobs[$id]['crontab']['nextrun'] = $userapi->nextrun($job['crontab']);
                             }
                             break;
                     }

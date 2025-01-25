@@ -31,6 +31,7 @@ class SearchMethod extends MethodClass
 
     /**
      * search for scheduler API functions in modules/<module>/xarschedulerapi directories
+     * @see AdminGui::search()
      */
     public function __invoke(array $args = [])
     {

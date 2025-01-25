@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Scheduler\AdminGui;
 
 
 use Xaraya\Modules\Scheduler\AdminGui;
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarModVars;
@@ -36,9 +37,12 @@ class ViewMethod extends MethodClass
     /**
      * This is a standard function to modify the configuration parameters of the
      * module
+     * @see AdminGui::view()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
@@ -121,7 +125,7 @@ class ViewMethod extends MethodClass
             'admin' => 'admin',
             'user' => 'user',
         ];
-        $data['intervals'] = xarMod::apiFunc('scheduler', 'user', 'intervals');
+        $data['intervals'] = $userapi->intervals();
 
         $hooks = xarModHooks::call(
             'module',

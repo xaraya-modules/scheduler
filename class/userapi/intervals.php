@@ -31,6 +31,7 @@ class IntervalsMethod extends MethodClass
      * Define the list of available scheduler intervals
      * @author mikespub
      * @return array of intervals
+     * @see UserApi::intervals()
      */
     public function __invoke(array $args = [])
     {

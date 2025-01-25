@@ -52,22 +52,22 @@ class TriggerBlock extends BasicBlock implements iBlock
         $vars = $this->getContent();
         /*
                 // check if we have the right trigger
-                $trigger = xarModVars::get('scheduler','trigger');
+                $trigger = $this->mod()->getVar('trigger');
                 if (empty($trigger) || $trigger != 'block') {
-                    $vars['msg'] = xarMLS::translate('Wrong trigger');
+                    $vars['msg'] = $this->ml('Wrong trigger');
                     return $vars;
                 }
         */
         // Check when we last ran the scheduler
-        $lastrun = xarModVars::get('scheduler', 'lastrun');
+        $lastrun = $this->mod()->getVar('lastrun');
         $now = time() + 60; // add some margin here
-        $interval = xarModVars::get('scheduler', 'interval');    // The interval is set in modifyconfig
+        $interval = $this->mod()->getVar('interval');    // The interval is set in modifyconfig
         if (!empty($lastrun) && $lastrun >= $now - $interval) {  // Make sure the defined interval has passed
             if (empty($vars['showstatus'])) {
                 return;
             } else {
                 $diff = time() - $lastrun;
-                $vars['msg'] = xarMLS::translate('Last run was #(1) minutes #(2) seconds ago', intval($diff / 60), $diff % 60);
+                $vars['msg'] = $this->ml('Last run was #(1) minutes #(2) seconds ago', intval($diff / 60), $diff % 60);
                 return $vars;
             }
         }
@@ -77,8 +77,8 @@ class TriggerBlock extends BasicBlock implements iBlock
         @set_time_limit(15 * 60);
 
         // update the last run time
-        xarModVars::set('scheduler', 'lastrun', $now - 60); // remove the margin here
-        xarModVars::set('scheduler', 'running', 1);
+        $this->mod()->setVar('lastrun', $now - 60); // remove the margin here
+        $this->mod()->setVar('running', 1);
 
         // TODO: this won't work on NFS-mounted or FAT (Win98) file systems, and ISAPI may do weird things too !
         //       So we need to find some better way to see if we're really the only ones playing here...
@@ -90,7 +90,7 @@ class TriggerBlock extends BasicBlock implements iBlock
             if (empty($vars['showstatus'])) {
                 return;
             } else {
-                $vars['msg'] = xarMLS::translate('Some other process is running jobs right now');
+                $vars['msg'] = $this->ml('Some other process is running jobs right now');
                 return $vars;
             }
         }
@@ -105,7 +105,7 @@ class TriggerBlock extends BasicBlock implements iBlock
         if (empty($vars['showstatus'])) {
             return;
         } else {
-            $vars['msg'] = xarMLS::translate('Running Jobs');
+            $vars['msg'] = $this->ml('Running Jobs');
             return $vars;
         }
     }

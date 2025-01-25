@@ -32,6 +32,7 @@ class MainMethod extends MethodClass
 
     /**
      * the main administration function
+     * @see AdminGui::main()
      */
     public function __invoke(array $args = [])
     {

@@ -39,6 +39,7 @@ class TestMethod extends MethodClass
      * @param array<mixed> $args
      * @var mixed $itemid job id
      * @return array|string|true|void on success, void on failure
+     * @see AdminGui::test()
      */
     public function __invoke(array $args = [])
     {
@@ -51,7 +52,7 @@ class TestMethod extends MethodClass
         }
 
         if (empty($itemid)) {
-            return $this->ctl()->notFound(null, $this->getContext());
+            return $this->ctl()->notFound();
         }
 
         // Security Check

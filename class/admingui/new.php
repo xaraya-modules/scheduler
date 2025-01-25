@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Scheduler\AdminGui;
 
 
 use Xaraya\Modules\Scheduler\AdminGui;
+use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,9 +36,12 @@ class NewMethod extends MethodClass
     /**
      * Modify extra information for scheduler jobs
      * @param array<mixed> $args id itemid
+     * @see AdminGui::new()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('AdminScheduler')) {
             return;
         }
@@ -62,8 +66,7 @@ class NewMethod extends MethodClass
             $isvalid = $data['object']->checkInput();
 
             /*if ($job_interval == '0c' && !empty($config['crontab'])) {
-                $config['crontab']['nextrun'] = xarMod::apiFunc('scheduler','user','nextrun',
-                                                              $config['crontab']);
+                $config['crontab']['nextrun'] = $userapi->nextrun($config['crontab']);
             }
             $job['config'] = $config;*/
 

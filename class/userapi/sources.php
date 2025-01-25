@@ -31,6 +31,7 @@ class SourcesMethod extends MethodClass
      * Define the list of available trigger source types
      * @author mikespub
      * @return array of intervals
+     * @see UserApi::sources()
      */
     public function __invoke(array $args = [])
     {

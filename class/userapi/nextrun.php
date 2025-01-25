@@ -31,6 +31,7 @@ class NextrunMethod extends MethodClass
      * calculate the next run time for a cron-like interval
      * @param mixed $args array specifying the custom interval
      * @return int timestamp
+     * @see UserApi::nextrun()
      */
     public function __invoke(array $args = [])
     {
