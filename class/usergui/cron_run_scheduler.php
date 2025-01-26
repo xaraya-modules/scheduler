@@ -1,6 +1,8 @@
 <?php
 
 // This file will call required URL of the scheduler module to trigger scheduler from outside
+sys::import('xaraya.facades.logger');
+use Xaraya\Facades\xarLog3;
 
 // Uncomment the next 2 lines for going live
 scheduler_callScheduler();
@@ -19,9 +21,9 @@ function scheduler_writeInLog()
     $date = date('d.m.Y h:i:s');
 
     // The Xaraya log (if enabled)
-    xarLog::message('Entered in cron_run_scheduler');
-    xarLog::message('Current Date time');
-    xarLog::variable('datetime', $date);
+    xarLog3::debug('Entered in cron_run_scheduler');
+    xarLog3::debug('Current Date time');
+    xarLog3::debug('datetime', [$date]);
 
     // The scheduler test log
     $msg = "Current Date";
