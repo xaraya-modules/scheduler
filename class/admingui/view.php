@@ -110,7 +110,7 @@ class ViewMethod extends MethodClass
         ];
         $data['lastrun'] = $this->mod()->getVar('lastrun');
 
-        $modules = xarMod::apiFunc(
+        $modules = $this->mod()->apiFunc(
             'modules',
             'admin',
             'getlist',

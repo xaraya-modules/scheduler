@@ -23,7 +23,7 @@ sys::import('xaraya.modules.userapi');
  * @method mixed getall(array $args)
  * @method mixed intervals(array $args)
  * @method mixed nextrun(array $args)
- * @method mixed runjobs(array $args)
+ * @method mixed runjobs(array $args = [])
  * @method mixed sources(array $args)
  * @method mixed triggers(array $args)
  * @extends UserApiClass<Module>

@@ -78,7 +78,7 @@ class TestMethod extends MethodClass
         $job->getItem(['itemid' => $itemid]);
 
         // Run the job
-        $result = xarMod::apiFunc(
+        $result = $this->mod()->apiFunc(
             $job->properties['module']->value,
             $job->properties['type']->value,
             $job->properties['function']->value

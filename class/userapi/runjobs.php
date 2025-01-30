@@ -333,20 +333,20 @@ class RunjobsMethod extends MethodClass
 
             $this->mod()->setVar('running.' . $job['id'], 1);
             // Don't run jobs of modules that are not installed
-            if (!xarMod::isAvailable($job['module'])) {
+            if (!$this->mod()->isAvailable($job['module'])) {
                 $log = $this->ml('#(2) Skipped: #(1)', $jobname, $log_identifier);
                 $logs[] = $log;
                 $this->log()->notice($log);
                 continue;
             }
             if (!empty($job['parameters'])) {
-                @eval('$output = xarMod::apiFunc("' . $job['module'] . '", "' . $job['type'] . '", "' . $job['function'] . '", ' . $job['parameters'] . ', 0);');
+                @eval('$output = $this->mod()->apiFunc("' . $job['module'] . '", "' . $job['type'] . '", "' . $job['function'] . '", ' . $job['parameters'] . ', 0);');
             } else {
                 try {
-                    $output = xarMod::apiFunc($job['module'], $job['type'], $job['function']);
+                    $output = $this->mod()->apiFunc($job['module'], $job['type'], $job['function']);
                 } catch (Exception $e) {
                     // If we are debugging, then show an error here
-                    if ($this->mod()->getVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
+                    if ($this->mod()->getVar('debugmode') && xarUser::isDebugAdmin()) {
                         print_r($e->getMessage());
                         $this->exit();
                     }

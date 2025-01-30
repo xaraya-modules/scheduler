@@ -55,7 +55,7 @@ class ModifyconfigMethod extends MethodClass
 
         switch (strtolower($data['tab'])) {
             case 'general':
-                $data['module_settings'] = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'scheduler']);
+                $data['module_settings'] = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'scheduler']);
                 $data['module_settings']->setFieldList('items_per_page, use_module_alias, use_module_icons');
                 $data['module_settings']->getItem();
                 break;

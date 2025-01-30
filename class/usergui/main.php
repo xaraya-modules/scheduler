@@ -60,9 +60,9 @@ class MainMethod extends MethodClass
 
         $this->mod()->setVar('running', 1);
         $data['output'] = $userapi->runjobs();
-        xarModVars::delete('scheduler', 'running');
+        $this->mod()->delVar('running');
 
-        if ($this->mod()->getVar('debugmode') && in_array(xarUser::getVar('id'), xarConfigVars::get(null, 'Site.User.DebugAdmins'))) {
+        if ($this->mod()->getVar('debugmode') && xarUser::isDebugAdmin()) {
             // Show the output only to administrators
             return $data;
         } else {

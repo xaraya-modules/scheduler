@@ -42,7 +42,7 @@ class SearchMethod extends MethodClass
         $data = [];
         $data['found'] = [];
 
-        $items = xarMod::apiFunc('modules', 'admin', 'getlist', ['filter' => ['State' => xarMod::STATE_ACTIVE]]);
+        $items = $this->mod()->apiFunc('modules', 'admin', 'getlist', ['filter' => ['State' => xarMod::STATE_ACTIVE]]);
         $activemodules = [];
         foreach ($items as $item) {
             $activemodules[$item['name']] = 1;

@@ -96,7 +96,7 @@ class TriggerBlock extends BasicBlock implements iBlock
         }
 
         // For some reason, PHP thinks it's in the Apache root during shutdown functions,
-        // so we save the current base dir here - otherwise xarMod::apiFunc() will fail
+        // so we save the current base dir here - otherwise $this->mod()->apiFunc() will fail
         $GLOBALS['xarScheduler_BaseDir'] = realpath('.');
 
         // register the shutdown function that will execute the jobs after this script finishes
@@ -118,11 +118,11 @@ class TriggerBlock extends BasicBlock implements iBlock
 function triggerblock_runjobs()
 {
     // For some reason, PHP thinks it's in the Apache root during shutdown functions,
-    // so we move back to our own base dir first - otherwise xarMod::apiFunc() will fail
+    // so we move back to our own base dir first - otherwise $this->mod()->apiFunc() will fail
     if (!empty($GLOBALS['xarScheduler_BaseDir'])) {
         chdir($GLOBALS['xarScheduler_BaseDir']);
     }
-    $output = xarMod::apiFunc('scheduler', 'user', 'runjobs');
+    $output = $this->mod()->apiMethod('scheduler', 'user', 'runjobs');
 
     // Normally, open files should be closed at the end by PHP anyway, but let's be polite :)
     if (!empty($GLOBALS['xarScheduler_LockFileHandle'])) {
