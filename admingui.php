@@ -15,7 +15,7 @@ use Xaraya\Modules\AdminGuiClass;
 use sys;
 
 sys::import('xaraya.modules.admingui');
-sys::import('modules.scheduler.class.userapi');
+sys::import('modules.scheduler.userapi');
 
 /**
  * Handle the scheduler admin GUI
