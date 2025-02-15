@@ -71,6 +71,24 @@ class SearchMethod extends MethodClass
                 }
                 closedir($dh2);
             }
+            // @todo for api functions migrated to methods - find better way to scan for them here
+            if (is_dir($modules . '/' . $dir) && is_dir($modules . '/' . $dir . '/schedulerapi')) {
+                if (!isset($activemodules[$dir])) {
+                    continue;
+                }
+                $dh2 = opendir($modules . '/' . $dir . '/schedulerapi');
+                if (empty($dh2)) {
+                    continue;
+                }
+                while (($file = readdir($dh2)) !== false) {
+                    if (preg_match('/^(\w+)\.php$/', $file, $matches)) {
+                        $data['found'][] = ['module' => $dir, // not really, but let's not be difficult
+                            'type' => 'scheduler',
+                            'func' => $matches[1], ];
+                    }
+                }
+                closedir($dh2);
+            }
         }
         closedir($dh);
         return $data;
