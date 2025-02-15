@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Scheduler Module
  *
@@ -16,6 +17,11 @@
  * site, you can also execute this script directly using the PHP
  * command line interface (CLI) : php run_scheduler.php
  */
+if (php_sapi_name() !== 'cli') {
+    echo 'Scheduler Module Run Script for running scheduler jobs';
+    return;
+}
+chdir(dirname(__DIR__, 3) . '/html');
 
 /**
  * Load the layout file so we know where to find the Xaraya directories

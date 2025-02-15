@@ -37,7 +37,10 @@ class TestMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        scheduler_callScheduler();
-        scheduler_writeInLog();
+        /** @var UserGui $usergui */
+        $usergui = $this->usergui();
+        $output = $usergui->callScheduler();
+        $usergui->writeInLog();
+        return $output;
     }
 }
