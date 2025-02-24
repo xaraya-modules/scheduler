@@ -46,12 +46,8 @@ class NewMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('confirm', $confirm)) {
-            return;
-        }
-        if (!$this->var()->find('addjob', $addjob, 'str', '')) {
-            return;
-        }
+        $this->var()->find('confirm', $confirm);
+        $this->var()->find('addjob', $addjob, 'str', '');
 
         sys::import('modules.dynamicdata.class.objects.factory');
         $data['object'] = $this->data()->getObject(['name' => 'scheduler_jobs']);

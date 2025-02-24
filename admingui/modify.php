@@ -48,12 +48,8 @@ class ModifyMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('confirm', $confirm)) {
-            return;
-        }
-        if (!$this->var()->find('itemid', $data['itemid'], 'id', 0)) {
-            return;
-        }
+        $this->var()->find('confirm', $confirm);
+        $this->var()->find('itemid', $data['itemid'], 'id', 0);
 
         if (empty($data['itemid'])) {
             $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
@@ -91,9 +87,7 @@ class ModifyMethod extends MethodClass
             $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
             return true;
 
-            if (!$this->var()->find('config', $config, 'isset', [])) {
-                return;
-            }
+            $this->var()->find('config', $config, 'isset', []);
             if (empty($config)) {
                 $config = [];
             }

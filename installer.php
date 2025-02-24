@@ -290,13 +290,13 @@ class Installer extends InstallerClass
                 }
 
                 // delete modvars
-                /*            xarModVars::delete('scheduler', 'checktype');
-                            xarModVars::delete('scheduler', 'checkvalue');
-                            xarModVars::delete('scheduler', 'jobs');
-                            xarModVars::delete('scheduler', 'lastrun');
-                            xarModVars::delete('scheduler', 'maxjobid');
-                            xarModVars::delete('scheduler', 'running');
-                            xarModVars::delete('scheduler', 'trigger');
+                /*            $this->mod('scheduler')->delVar('checktype');
+                            $this->mod('scheduler')->delVar('checkvalue');
+                            $this->mod('scheduler')->delVar('jobs');
+                            $this->mod('scheduler')->delVar('lastrun');
+                            $this->mod('scheduler')->delVar('maxjobid');
+                            $this->mod('scheduler')->delVar('running');
+                            $this->mod('scheduler')->delVar('trigger');
                 */
                 // no break
             case '2.0.0':

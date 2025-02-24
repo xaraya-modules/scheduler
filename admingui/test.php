@@ -44,12 +44,8 @@ class TestMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Get parameters
-        if (!$this->var()->find('itemid', $itemid, 'id', 0)) {
-            return;
-        }
-        if (!$this->var()->find('confirm', $confirm, 'str:1:', '')) {
-            return;
-        }
+        $this->var()->find('itemid', $itemid, 'id', 0);
+        $this->var()->find('confirm', $confirm, 'str:1:', '');
 
         if (empty($itemid)) {
             return $this->ctl()->notFound();

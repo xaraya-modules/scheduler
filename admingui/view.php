@@ -83,9 +83,7 @@ class ViewMethod extends MethodClass
             $data['jobs'] = $newjobs;
         }
 
-        if (!$this->var()->find('addjob', $addjob, 'str', '')) {
-            return;
-        }
+        $this->var()->find('addjob', $addjob, 'str', '');
         if (!empty($addjob) && preg_match('/^(\w+);(\w+);(\w+)$/', $addjob, $matches)) {
             $maxid++;
             $this->mod()->setVar('maxjobid', $maxid);

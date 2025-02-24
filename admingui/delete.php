@@ -47,12 +47,8 @@ class DeleteMethod extends MethodClass
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
         // Get parameters
-        if (!$this->var()->get('itemid', $itemid, 'id')) {
-            return;
-        }
-        if (!$this->var()->find('confirm', $confirm, 'str:1:', '')) {
-            return;
-        }
+        $this->var()->get('itemid', $itemid, 'id');
+        $this->var()->find('confirm', $confirm, 'str:1:', '');
 
         // Security Check
         if (!$this->sec()->checkAccess('AdminScheduler')) {
