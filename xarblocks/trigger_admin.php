@@ -46,7 +46,7 @@ class TriggerBlockAdmin extends TriggerBlock implements iBlock
     public function update($data = [])
     {
         $vars = [];
-        $this->var()->fetch('showstatus', 'checkbox', $vars['showstatus'], 0, xarVar::DONT_SET);
+        $this->var()->check('showstatus', $vars['showstatus'], 'checkbox', 0);
         $this->setContent($vars);
         return true;
     }
