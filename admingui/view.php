@@ -53,9 +53,9 @@ class ViewMethod extends MethodClass
         $data['checktype'] = $this->mod()->getVar('checktype');
         $data['checkvalue'] = $this->mod()->getVar('checkvalue');
 
-        $data['ip'] = xarServer::getVar('REMOTE_ADDR');
+        $data['ip'] = $this->ctl()->getServerVar('REMOTE_ADDR');
 
-        $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
+        $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
         if (!empty($forwarded)) {
             $data['proxy'] = $data['ip'];
             $data['ip'] = preg_replace('/,.*/', '', $forwarded);

@@ -53,12 +53,12 @@ class RunjobsMethod extends MethodClass
         #
         # Get the IP of the caller
         #
-        $ip = xarServer::getVar('REMOTE_ADDR');
+        $ip = $this->ctl()->getServerVar('REMOTE_ADDR');
         // Hackish way to convert IPv4 to IPv6
         if ($ip == "::1") {
             $ip = "127.0.0.1";
         }
-        $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
+        $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
         if (!empty($forwarded)) {
             $proxy = $ip;
             $ip = preg_replace('/,.* /', '', $forwarded);
@@ -346,7 +346,7 @@ class RunjobsMethod extends MethodClass
                     $output = $this->mod()->apiFunc($job['module'], $job['type'], $job['function']);
                 } catch (Exception $e) {
                     // If we are debugging, then show an error here
-                    if ($this->mod()->getVar('debugmode') && xarUser::isDebugAdmin()) {
+                    if ($this->mod()->getVar('debugmode') && $this->user()->isDebugAdmin()) {
                         print_r($e->getMessage());
                         $this->exit();
                     }

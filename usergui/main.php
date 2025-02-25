@@ -62,12 +62,12 @@ class MainMethod extends MethodClass
         $data['output'] = $userapi->runjobs();
         $this->mod()->delVar('running');
 
-        if ($this->mod()->getVar('debugmode') && xarUser::isDebugAdmin()) {
+        if ($this->mod()->getVar('debugmode') && $this->user()->isDebugAdmin()) {
             // Show the output only to administrators
             return $data;
         } else {
             // Everyone else gets turned away
-            return xarController::$response->NotFound();
+            return $this->ctl()->notFound();
         }
     }
 }
