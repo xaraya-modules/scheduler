@@ -75,6 +75,7 @@ class ModifyMethod extends MethodClass
                     'modify',
                     ['itemid' => $data['itemid']]
                 ));
+                return true;
             }
 
             // Reset this job as having not yet run

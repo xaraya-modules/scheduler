@@ -70,6 +70,7 @@ class NewMethod extends MethodClass
                 var_dump($data['object']->getInvalids());
                 $this->exit();
                 $this->ctl()->redirect($this->mod()->getURL('admin', 'new'));
+                return true;
             }
 
             $itemid = $data['object']->createItem();
