@@ -86,8 +86,8 @@ class ModifyconfigMethod extends MethodClass
                         ];
 
                         foreach ($modvars as $var) {
-                            if (isset($$var)) {
-                                $this->mod()->setVar($var, $$var);
+                            if (isset(${$var})) {
+                                $this->mod()->setVar($var, ${$var});
                             }
                         }
                         break;
