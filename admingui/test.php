@@ -14,14 +14,7 @@ namespace Xaraya\Modules\Scheduler\AdminGui;
 
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
-use xarVar;
-use xarController;
-use xarSecurity;
-use xarSec;
-use xarMod;
-use DataObjectFactory;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

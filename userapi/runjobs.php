@@ -14,14 +14,6 @@ namespace Xaraya\Modules\Scheduler\UserApi;
 
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarServer;
-use xarMod;
-use xarLog;
-use xarModVars;
-use xarUser;
-use xarConfigVars;
-use xarVar;
-use DataObjectFactory;
 use sys;
 use Exception;
 

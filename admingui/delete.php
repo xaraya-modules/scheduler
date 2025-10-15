@@ -15,12 +15,6 @@ namespace Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarVar;
-use xarSecurity;
-use xarSec;
-use xarMod;
-use xarController;
-use DataObjectFactory;
 use sys;
 use Exception;
 

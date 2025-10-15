@@ -15,7 +15,6 @@ namespace Xaraya\Modules\Scheduler;
 
 use DataProperty;
 use ObjectDescriptor;
-use xarMLS;
 use sys;
 
 sys::import('modules.dynamicdata.class.properties.base');

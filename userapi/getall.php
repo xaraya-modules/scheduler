@@ -14,10 +14,8 @@ namespace Xaraya\Modules\Scheduler\UserApi;
 
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use DataObjectFactory;
 use DataPropertyMaster;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

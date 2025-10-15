@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Scheduler\UserApi;
 
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use DataObjectFactory;
 use sys;
 use Exception;
 

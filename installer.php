@@ -14,9 +14,7 @@
 namespace Xaraya\Modules\Scheduler;
 
 use Xaraya\Modules\InstallerClass;
-use xarDB;
 use xarTableDDL;
-use xarModVars;
 use xarMasks;
 use xarPrivileges;
 use xarMod;

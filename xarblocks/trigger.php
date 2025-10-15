@@ -15,9 +15,6 @@ namespace Xaraya\Modules\Scheduler\Blocks;
 
 use BasicBlock;
 use iBlock;
-use xarMLS;
-use xarModVars;
-use xarMod;
 use sys;
 
 sys::import('xaraya.structures.containers.blocks.basicblock');

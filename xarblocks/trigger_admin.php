@@ -14,7 +14,6 @@
 namespace Xaraya\Modules\Scheduler\Blocks;
 
 use iBlock;
-use xarVar;
 use sys;
 
 /**
