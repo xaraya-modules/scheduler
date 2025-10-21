@@ -18,8 +18,8 @@ use iBlock;
 use sys;
 
 sys::import('xaraya.structures.containers.blocks.basicblock');
-sys::import('xaraya.facades.modules');
-use Xaraya\Facades\xarMod3;
+sys::import('xaraya.services.xar');
+use Xaraya\Services\xar;
 
 class TriggerBlock extends BasicBlock implements iBlock
 {
@@ -121,7 +121,7 @@ function triggerblock_runjobs()
     if (!empty($GLOBALS['xarScheduler_BaseDir'])) {
         chdir($GLOBALS['xarScheduler_BaseDir']);
     }
-    $output = xarMod3::apiFunc('scheduler', 'user', 'runjobs');
+    $output = xar::mod()->apiFunc('scheduler', 'user', 'runjobs');
 
     // Normally, open files should be closed at the end by PHP anyway, but let's be polite :)
     if (!empty($GLOBALS['xarScheduler_LockFileHandle'])) {
