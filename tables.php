@@ -14,8 +14,6 @@
 
 namespace Xaraya\Modules\Scheduler;
 
-use xarDB;
-
 class Tables
 {
     /**
@@ -27,10 +25,9 @@ class Tables
      * @access private
      * @return array
      */
-    public function __invoke(?string $prefix = null)
+    public function __invoke(string $prefix = 'xar')
     {
         $tables = [];
-        $prefix ??= xarDB::getPrefix();
         $tables['scheduler_jobs'] = $prefix . '_scheduler_jobs';
         return $tables;
     }
