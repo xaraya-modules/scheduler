@@ -385,7 +385,7 @@ class RunjobsMethod extends MethodClass
 
         // Trick : make sure we're dealing with up-to-date information here,
         //         because running all those jobs may have taken a while...
-        //    $this->var()->delCached('Mod.Variables.scheduler', 'jobs');
+        //    $this->mem()->del('Mod.Variables.scheduler', 'jobs');
 
         return $logs;
     }
