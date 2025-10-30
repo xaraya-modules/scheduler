@@ -53,7 +53,7 @@ class ViewMethod extends MethodClass
         if (!empty($forwarded)) {
             $data['proxy'] = $data['ip'];
             $data['ip'] = preg_replace('/,.*/', '', $forwarded);
-            $data['ip'] = $this->var()->prep($data['ip']);
+            $data['ip'] = \xarVarPrep::forDisplay($data['ip']);
         }
 
         $jobs = $this->mod()->getVar('jobs');
