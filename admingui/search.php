@@ -14,7 +14,7 @@ namespace Xaraya\Modules\Scheduler\AdminGui;
 
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
-use xarMod;
+use ixarMod;
 use sys;
 
 sys::import('xaraya.modules.method');
@@ -40,7 +40,7 @@ class SearchMethod extends MethodClass
         $data = [];
         $data['found'] = [];
 
-        $items = $this->mod()->apiFunc('modules', 'admin', 'getlist', ['filter' => ['State' => xarMod::STATE_ACTIVE]]);
+        $items = $this->mod()->apiFunc('modules', 'admin', 'getlist', ['filter' => ['State' => ixarMod::STATE_ACTIVE]]);
         $activemodules = [];
         foreach ($items as $item) {
             $activemodules[$item['name']] = 1;
