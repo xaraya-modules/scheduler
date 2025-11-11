@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
-
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi nextrun function
@@ -148,8 +144,8 @@ class NextrunMethod extends MethodClass
         // get the next of current month
         if (in_array($curmonth, $newmonths)) {
             // get the next of current day
-            if ((empty($newdays) || in_array($curday, $newdays)) &&
-                (empty($newweekdays) || in_array($curweekday, $newweekdays))) {
+            if ((empty($newdays) || in_array($curday, $newdays))
+                && (empty($newweekdays) || in_array($curweekday, $newweekdays))) {
                 // get the next of current hour
                 if (in_array($curhour, $newhours)) {
                     foreach ($newminutes as $nextminute) {
@@ -170,8 +166,8 @@ class NextrunMethod extends MethodClass
             $maxday = date('t', mktime(0, 0, 0, $curmonth, $curday, $curyear));
             for ($nextday = $curday + 1; $nextday <= $maxday; $nextday++) {
                 $nextweekday = ($curweekday + $nextday - $curday) % 7;
-                if ((empty($newdays) || in_array($nextday, $newdays)) &&
-                    (empty($newweekdays) || in_array($nextweekday, $newweekdays))) {
+                if ((empty($newdays) || in_array($nextday, $newdays))
+                    && (empty($newweekdays) || in_array($nextweekday, $newweekdays))) {
                     $nexthour = array_shift($newhours);
                     $nextminute = array_shift($newminutes);
                     return mktime($nexthour, $nextminute, $cursecond, $curmonth, $nextday, $curyear);
@@ -195,8 +191,8 @@ class NextrunMethod extends MethodClass
         $curweekday = date('w', mktime(0, 0, 0, $nextmonth, 1, $nextyear));
         for ($nextday = 1; $nextday <= $maxday; $nextday++) {
             $nextweekday = ($curweekday + $nextday - 1) % 7;
-            if ((empty($newdays) || in_array($nextday, $newdays)) &&
-                (empty($newweekdays) || in_array($nextweekday, $newweekdays))) {
+            if ((empty($newdays) || in_array($nextday, $newdays))
+                && (empty($newweekdays) || in_array($nextweekday, $newweekdays))) {
                 $nexthour = array_shift($newhours);
                 $nextminute = array_shift($newminutes);
                 return mktime($nexthour, $nextminute, $cursecond, $nextmonth, $nextday, $nextyear);

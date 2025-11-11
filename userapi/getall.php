@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
-
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use DataPropertyMaster;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi getall function
@@ -40,7 +36,6 @@ class GetallMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        sys::import('modules.dynamicdata.class.objects.factory');
         $object = $this->data()->getObjectList(['name' => 'scheduler_jobs']);
 
         // We want to get all the fields

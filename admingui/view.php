@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
-
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarModHooks;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin view function

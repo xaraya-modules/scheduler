@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Scheduler\UserGui;
 
-
 use Xaraya\Modules\Scheduler\UserGui;
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler user main function

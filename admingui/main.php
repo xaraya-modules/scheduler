@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
-
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin main function

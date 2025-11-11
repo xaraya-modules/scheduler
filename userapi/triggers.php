@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
-
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi triggers function

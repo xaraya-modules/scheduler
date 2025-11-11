@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
-
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin delete function
@@ -49,7 +45,6 @@ class DeleteMethod extends MethodClass
             return;
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $job = $this->data()->getObject(['name' => 'scheduler_jobs']);
 
         // Check for confirmation

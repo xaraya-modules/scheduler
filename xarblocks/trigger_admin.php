@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Scheduler Module
  *
@@ -14,7 +15,6 @@
 namespace Xaraya\Modules\Scheduler\Blocks;
 
 use iBlock;
-use sys;
 
 /**
  * Manage block
@@ -25,7 +25,6 @@ use sys;
  * @return  void
  * @todo    nothing
 */
-sys::import('modules.scheduler.xarblocks.trigger');
 
 class TriggerBlockAdmin extends TriggerBlock implements iBlock
 {

@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
-
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi get function
@@ -45,7 +41,6 @@ class GetMethod extends MethodClass
             throw new Exception($this->ml('No itemid or URL parameters passed'));
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         if (!empty($itemid)) {
             $object = $this->data()->getObject(['name' => 'scheduler_jobs']);
             $object->getItem(['itemid' => $args['itemid']]);

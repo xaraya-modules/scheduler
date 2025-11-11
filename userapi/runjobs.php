@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Scheduler\UserApi;
 
-
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler userapi runjobs function
@@ -86,7 +82,6 @@ class RunjobsMethod extends MethodClass
         #
         # Create a jobs object instance for easy updating
         #
-        sys::import('modules.dynamicdata.class.objects.factory');
         $jobobject = $this->data()->getObject(['name' => 'scheduler_jobs']);
 
         # --------------------------------------------------------
@@ -146,16 +141,16 @@ class RunjobsMethod extends MethodClass
                     continue;
 
                     // if we are outside the start- or end-date, skip it
-                } elseif ((!empty($job['start_date']) && $now < $job['start_date']) ||
-                          (!empty($job['end_date']) && $now > $job['end_date'])) {
+                } elseif ((!empty($job['start_date']) && $now < $job['start_date'])
+                          || (!empty($job['end_date']) && $now > $job['end_date'])) {
                     $log = $this->ml('#(2) Skipped: #(1) because not within time limits', $jobname, $log_identifier);
                     $logs[] = $log;
                     $this->log()->notice($log);
                     continue;
 
                     // if this is a crontab job and the next run is later, skip it
-                } elseif ($job['job_interval'] == '0c' && !empty($job['crontab']) &&
-                          !empty($job['crontab']['nextrun']) && $now < $job['crontab']['nextrun'] + 60) {
+                } elseif ($job['job_interval'] == '0c' && !empty($job['crontab'])
+                          && !empty($job['crontab']['nextrun']) && $now < $job['crontab']['nextrun'] + 60) {
                     $log = $this->ml('#(2) Skipped: #(1) because next cron defined run is later', $jobname, $log_identifier);
                     $logs[] = $log;
                     $this->log()->notice($log);

@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
-
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin new function
@@ -43,7 +39,6 @@ class NewMethod extends MethodClass
         $this->var()->find('confirm', $confirm);
         $this->var()->find('addjob', $addjob, 'str', '');
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $data['object'] = $this->data()->getObject(['name' => 'scheduler_jobs']);
 
         if (!empty($addjob) && preg_match('/^(\w+);(\w+);(\w+)$/', $addjob, $matches)) {

@@ -19,10 +19,7 @@ use xarMasks;
 use xarPrivileges;
 use xarMod;
 use PropertyRegistration;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.installer');
 
 /**
  * Handle module installer functions

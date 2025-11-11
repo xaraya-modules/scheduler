@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
-
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin test function
@@ -62,7 +58,6 @@ class TestMethod extends MethodClass
         }
 
         // Get the job details
-        sys::import('modules.dynamicdata.class.objects.factory');
         $job = $this->data()->getObject(['name' => 'scheduler_jobs']);
         $job->getItem(['itemid' => $itemid]);
 

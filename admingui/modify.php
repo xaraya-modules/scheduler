@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Scheduler\AdminGui;
 
-
 use Xaraya\Modules\Scheduler\AdminGui;
 use Xaraya\Modules\Scheduler\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * scheduler admin modify function
@@ -48,7 +44,6 @@ class ModifyMethod extends MethodClass
             return true;
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $data['object'] = $this->data()->getObject(['name' => 'scheduler_jobs']);
         $data['object']->getItem(['itemid' => $data['itemid']]);
 
@@ -85,7 +80,8 @@ class ModifyMethod extends MethodClass
                 $config = [];
             }
             if ($interval == '0c' && !empty($config['crontab'])) {
-                $config['crontab']['nextrun'] = $userapi->nextrun($config['crontab']
+                $config['crontab']['nextrun'] = $userapi->nextrun(
+                    $config['crontab']
                 );
             }
             $job['config'] = $config;

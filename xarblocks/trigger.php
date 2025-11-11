@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Scheduler Module
  *
@@ -16,9 +17,6 @@ namespace Xaraya\Modules\Scheduler\Blocks;
 use BasicBlock;
 use iBlock;
 use sys;
-
-sys::import('xaraya.structures.containers.blocks.basicblock');
-sys::import('xaraya.services.xar');
 use Xaraya\Services\xar;
 
 class TriggerBlock extends BasicBlock implements iBlock

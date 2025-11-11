@@ -12,9 +12,6 @@
 namespace Xaraya\Modules\Scheduler;
 
 use Xaraya\Modules\UserApiClass;
-use sys;
-
-sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the scheduler user API
