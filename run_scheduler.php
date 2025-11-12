@@ -47,6 +47,7 @@ set_include_path($systemConfiguration['rootDir'] . PATH_SEPARATOR . get_include_
  * Load the Xaraya bootstrap so we can get started
  */
 include 'bootstrap.php';
+use Xaraya\Services\xar;
 
 /**
  * Set up output caching if enabled
@@ -54,14 +55,14 @@ include 'bootstrap.php';
  *       without loading the core
  */
 // Note : we may already exit here if session-less page caching is enabled
-xarCache::init();
+xar::cache()->init();
 
 /**
  * Load the Xaraya core
  */
 
 // Load the core with all optional systems loaded
-xarCore::xarInit(xarCore::SYSTEM_ALL);
+$xar = xar::load();
 
 $homedir = xarServer::getBaseURL();
 
